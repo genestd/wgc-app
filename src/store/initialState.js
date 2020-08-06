@@ -1,4 +1,6 @@
 export default {
     loggedIn: 'false',
-    authPage: 'register'
+    authPage: 'register',
+    loginMessage: '',
+    pendingActions: [],
 }

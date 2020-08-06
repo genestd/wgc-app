@@ -1,11 +1,13 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-    loginContainer: {
-        height: '50%',
+    authButton: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
     },
-    registerContainer: {
-        height: '75%'
+    loginContainer: {
+       paddingBottom: 20
     },
     loginInput: {
         width: '80%',
@@ -26,5 +28,8 @@ export default StyleSheet.create({
         paddingLeft: 10,
         fontSize: 18,
         color: 'red',
-    }
+    },
+    registerContainer: {
+        paddingBottom: 20
+    },
 })

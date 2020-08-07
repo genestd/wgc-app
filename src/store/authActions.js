@@ -10,12 +10,21 @@ function wait(time) {
     })
 }
 
+export async function validateUserSession() {
+    try {
+        const user = await Auth.currentAuthenticatedUser()
+        return user
+    } catch (error) {
+        return null
+    }
+}
+
 export async function login (username, password, dispatch) {
     try {
         dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.LOGIN })
         dispatch({ type: actions.SET_LOGIN_MSG, message: '' })
         const response = await Auth.signIn(username, password)
-        console.log('RESPONSE', response)
+        dispatch({ type: actions.LOGIN_SUCCESS, user: response.payload })
     } catch (error) {
         console.log(error)
         if (error.code === 'UserNotConfirmedException') {

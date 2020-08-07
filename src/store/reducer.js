@@ -1,11 +1,14 @@
 import INITIAL_STATE from './initialState'
 import * as actions from './actionTypes'
+import { loginSuccess } from './operations'
 import { addToArrayUnique } from '../utils/index'
 
 function reducer (state = INITIAL_STATE, action) {
     switch (action.type) {
         case actions.CHANGE_AUTH_PAGE:
             return { ...state, authPage: action.payload }
+        case actions.LOGIN_SUCCESS:
+            return loginSuccess(state, action)
         case actions.SET_LOGIN_MSG:
             return { ...state, loginMessage: action.message }
         case actions.SET_REGISTER_MSG:
@@ -14,6 +17,8 @@ function reducer (state = INITIAL_STATE, action) {
             return { ...state, confirmSignUpMsg: action.message }
         case actions.CONFIRM_SIGN_UP_SUCCESS:
             return { ...state, user: { username: action.username } }
+        case actions.LOGOUT:
+            return { ...state, user: null, loggedIn: false }
         case actions.ADD_ASYNC_ACTION:
             return { ...state, pendingActions: addToArrayUnique(state.pendingActions, action.action) }
         case actions.REMOVE_ASYNC_ACTION:

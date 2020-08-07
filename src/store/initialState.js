@@ -1,5 +1,5 @@
 export default {
-    loggedIn: 'false',
+    loggedIn: false,
     authPage: 'register',
     loginMessage: '',
     registerMessage: '',

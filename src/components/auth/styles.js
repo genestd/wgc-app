@@ -32,7 +32,7 @@ export default StyleSheet.create({
     loginErrorMessage: {
         fontSize: 18,
         color: 'red',
-        paddingTop: 10
+        paddingBottom: 6
     },
     registerContainer: {
         paddingBottom: 20

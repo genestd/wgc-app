@@ -64,13 +64,24 @@ const Login = ({onChangeAuthPage, loading}) => {
                 onBlur={() => validateInput('password', password, setPasswordStatus, setPasswordCaption)}
                 onFocus={() => resetInput(setPasswordStatus, setPasswordCaption)}
                 caption={passwordCaption}
-                />
+            />
+            {state.loginMessage ? <Text style={styles.loginErrorMessage}>{state.loginMessage}</Text> : null}
             <Button accessoryLeft={LoadingIndicator} size='large' onPress={validateAndSubmit} style={styles.authbutton}>
                 <Text>
                     Sign In
                 </Text>
             </Button>
-            {state.loginMessage ? <Text style={styles.loginErrorMessage}>{state.loginMessage}</Text> : null}
+            <View style={styles.loginMessageContainer}>
+                <Button
+                    appearance='ghost'
+                    size='tiny'
+                    onPress={() => onChangeAuthPage('resetPassword')}
+                >
+                    <Text style={styles.loginLink}>
+                        Forgot password?
+                    </Text>
+                </Button>
+            </View>
         </View>
     )
 }

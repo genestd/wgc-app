@@ -1,4 +1,5 @@
 export const CHANGE_AUTH_PAGE = 'auth/ChangeAuthPage'
 export const SET_LOGIN_MESSAGE = 'auth/SetLoginMessage'
+export const SET_REGISTER_MESSAGE = 'auth/SetRegisterMessage'
 export const ADD_ASYNC_ACTION = 'global/AddAsyncAction'
 export const REMOVE_ASYNC_ACTION = 'global/RemoveAsyncAction'

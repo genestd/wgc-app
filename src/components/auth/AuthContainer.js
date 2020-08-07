@@ -24,7 +24,10 @@ const AuthContainer = () => {
                     loading={state.pendingActions.includes('LOGIN')}
                 />
             case 'register':
-                return <Register onChangeAuthPage={changeAuthPage} />
+                return <Register
+                    onChangeAuthPage={changeAuthPage}
+                    loading={state.pendingActions.includes('REGISTER')}
+                />
             case 'confirmRegistration':
                 return <ConfirmRegistration />
             case 'resetPassword':

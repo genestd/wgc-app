@@ -3,5 +3,6 @@ export default {
     authPage: 'register',
     loginMessage: '',
     registerMessage: '',
+    confirmSignUpMsg: '',
     pendingActions: [],
 }

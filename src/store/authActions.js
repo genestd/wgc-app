@@ -12,8 +12,8 @@ function wait(time) {
 
 export async function login (username, password, dispatch) {
     try {
-        dispatch({ type: actions.ADD_ASYNC_ACTION, action: 'LOGIN' })
-        dispatch({ type: actions.SET_LOGIN_MESSAGE, message: '' })
+        dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.LOGIN })
+        dispatch({ type: actions.SET_LOGIN_MSG, message: '' })
         const response = await Auth.signIn(username, password)
         console.log('RESPONSE', response)
     } catch (error) {
@@ -22,21 +22,21 @@ export async function login (username, password, dispatch) {
             return dispatch({ type: actions.CHANGE_AUTH_PAGE, payload: 'confirmRegistration'})
         }
         let message 
-        if (error.code === 'UserNotFoundException') {
+        if (error.code === 'UserNotFoundException' || error.code === 'NotAuthorizedException') {
             message = error.message
         } else {
             message = 'Unable to login, please try again later'
         }
-        dispatch({ type: actions.SET_LOGIN_MESSAGE, message })
+        dispatch({ type: actions.SET_LOGIN_MSG, message })
     } finally {
-        dispatch({ type: actions.REMOVE_ASYNC_ACTION, action: 'LOGIN' }) 
+        dispatch({ type: actions.REMOVE_ASYNC_ACTION, action: actions.LOGIN }) 
     }
 }
 
 export async function register (username, password, email, phone, dispatch) {
     try {
-        dispatch({ type: actions.ADD_ASYNC_ACTION, action: 'REGISTER' })
-        dispatch({ type: actions.SET_REGISTER_MESSAGE, message: '' })
+        dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.REGISTER })
+        dispatch({ type: actions.SET_REGISTER_MSG, message: '' })
         const response = await Auth.signUp({
             username,
             password,
@@ -55,9 +55,31 @@ export async function register (username, password, email, phone, dispatch) {
         } else {
             message = 'Unable to register, please try again later'
         }
-        dispatch({ type: actions.SET_REGISTER_MESSAGE, message })
+        dispatch({ type: actions.SET_REGISTER_MSG, message })
     } finally {
-        dispatch({ type: actions.REMOVE_ASYNC_ACTION, action: 'REGISTER' }) 
+        dispatch({ type: actions.REMOVE_ASYNC_ACTION, action: actions.REGISTER }) 
+    }
+}
+
+export async function confirmRegistration (username, code, dispatch) {
+    try {
+        dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.CONFIRM_SIGN_UP })
+        dispatch({ type: actions.SET_CONFIRM_SIGN_UP_MSG, message: '' })
+        const response = await Auth.confirmSignUp(username, code)
+        console.log('Confirm Sign Up RESPONSE', response)
+        dispatch({ type: actions.CONFIRM_SIGN_UP_SUCCESS, username })
+        dispatch({ type: actions.CHANGE_AUTH_PAGE, payload: 'login'})
+    } catch (error) {
+        console.log(error)
+        let message 
+        if (error.code === 'UsernameExistsException' || error.code === 'NotAuthorizedException') {
+            message = error.message
+        } else {
+            message = 'Unable to confirm registration, please try again later'
+        }
+        dispatch({ type: actions.SET_CONFIRM_SIGN_UP_MSG, message })
+    } finally {
+        dispatch({ type: actions.REMOVE_ASYNC_ACTION, action: actions.CONFIRM_SIGN_UP }) 
     }
 }
 
@@ -97,12 +119,21 @@ export function validateInput (type, value, setStatus, setCaption, compareValue)
                 setStatus('danger')
                 setCaption(<Text>Enter valid number with area code</Text>)    
             }
+            break
         case 'email':
             if (!value.match(/^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$/)) {
                 valid = false
                 setStatus('danger')
                 setCaption(<Text>Enter valid email address</Text>)    
             }
+            break
+        case 'confirmationCode':
+            if (value.length !== 6) {
+                valid = false
+                setStatus('danger')
+                setCaption(<Text>Confirm code is 6 characters</Text>)
+            }
+            break
     }
     return valid
 }

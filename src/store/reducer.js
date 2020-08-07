@@ -6,10 +6,14 @@ function reducer (state = INITIAL_STATE, action) {
     switch (action.type) {
         case actions.CHANGE_AUTH_PAGE:
             return { ...state, authPage: action.payload }
-        case actions.SET_LOGIN_MESSAGE:
+        case actions.SET_LOGIN_MSG:
             return { ...state, loginMessage: action.message }
-        case actions.SET_REGISTER_MESSAGE:
+        case actions.SET_REGISTER_MSG:
             return { ...state, registerMessage: action.message }
+        case actions.SET_CONFIRM_SIGN_UP_MSG:
+            return { ...state, confirmSignUpMsg: action.message }
+        case actions.CONFIRM_SIGN_UP_SUCCESS:
+            return { ...state, user: { username: action.username } }
         case actions.ADD_ASYNC_ACTION:
             return { ...state, pendingActions: addToArrayUnique(state.pendingActions, action.action) }
         case actions.REMOVE_ASYNC_ACTION:

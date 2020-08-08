@@ -1,6 +1,6 @@
 import INITIAL_STATE from './initialState'
 import * as actions from './actionTypes'
-import { loginSuccess } from './operations'
+import { loginSuccess, registerSuccess } from './operations'
 import { addToArrayUnique } from '../utils/index'
 
 function reducer (state = INITIAL_STATE, action) {
@@ -11,14 +11,18 @@ function reducer (state = INITIAL_STATE, action) {
             return loginSuccess(state, action)
         case actions.SET_LOGIN_MSG:
             return { ...state, loginMessage: action.message }
+        case actions.REGISTER_SUCCESS:
+            return registerSuccess(state, action)
         case actions.SET_REGISTER_MSG:
             return { ...state, registerMessage: action.message }
         case actions.SET_CONFIRM_SIGN_UP_MSG:
             return { ...state, confirmSignUpMsg: action.message }
         case actions.CONFIRM_SIGN_UP_SUCCESS:
-            return { ...state, user: { username: action.username } }
+            return { ...state, username: action.username }
         case actions.LOGOUT:
-            return { ...state, user: null, loggedIn: false }
+            return { ...state, loggedIn: false }
+        case actions.SAVE_USERNAME:
+            return { ...state, username: action.username }
         case actions.ADD_ASYNC_ACTION:
             return { ...state, pendingActions: addToArrayUnique(state.pendingActions, action.action) }
         case actions.REMOVE_ASYNC_ACTION:

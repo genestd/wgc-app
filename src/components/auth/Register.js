@@ -8,7 +8,7 @@ import styles from './styles'
 
 const Register = ({onChangeAuthPage}) => {
     const {state, dispatch} = useContext(WGCContext)
-    const [username, setUsername] = useState('')
+    const [username, setUsername] = useState(state.username || '')
     const [usernameStatus, setUsernameStatus] = useState('basic')
     const [usernameCaption, setUsernameCaption] = useState(null)
     const [password, setPassword] = useState('')
@@ -129,7 +129,7 @@ const Register = ({onChangeAuthPage}) => {
             <Button onPress={validateAndSubmit}>
                 Register
             </Button>
-            {state.loginMessage ? <Text style={styles.loginErrorMessage}>{state.registerMessage}</Text> : null}
+            {state.registerMessage ? <Text style={styles.loginErrorMessage}>{state.registerMessage}</Text> : null}
         </View>
     )
 }

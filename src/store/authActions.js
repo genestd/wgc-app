@@ -11,12 +11,11 @@ function wait(time) {
 }
 
 export async function validateUserSession() {
-    try {
-        const user = await Auth.currentAuthenticatedUser()
-        return user
-    } catch (error) {
-        return null
-    }
+    return new Promise((resolve, reject) => {
+        Auth.currentAuthenticatedUser()
+            .then(resolve)
+            .catch(reject)
+    })
 }
 
 export async function login (username, password, dispatch) {
@@ -24,10 +23,13 @@ export async function login (username, password, dispatch) {
         dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.LOGIN })
         dispatch({ type: actions.SET_LOGIN_MSG, message: '' })
         const response = await Auth.signIn(username, password)
-        dispatch({ type: actions.LOGIN_SUCCESS, user: response.payload })
+        console.log(response)
+        dispatch({ type: actions.LOGIN_SUCCESS, user: response.username })
     } catch (error) {
         console.log(error)
         if (error.code === 'UserNotConfirmedException') {
+            dispatch({ type: actions.SET_CONFIRM_SIGN_UP_MSG, message: 'Did you get a confirmation code?'})
+            dispatch({ type: actions.SAVE_USERNAME, username })
             return dispatch({ type: actions.CHANGE_AUTH_PAGE, payload: 'confirmRegistration'})
         }
         let message 
@@ -55,7 +57,7 @@ export async function register (username, password, email, phone, dispatch) {
             }
         })
         console.log('Sign Up RESPONSE', response)
-        dispatch({ type: actions.CHANGE_AUTH_PAGE, payload: 'confirmRegistration'})
+        dispatch({ type: actions.REGISTER_SUCCESS, payload: response.user.username })
     } catch (error) {
         console.log(error)
         let message 

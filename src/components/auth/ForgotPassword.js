@@ -1,17 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Text, View } from 'react-native'
-import { Input, Button } from '@ui-kitten/components'
+import { Input, Button, Spinner } from '@ui-kitten/components'
 import { WGCContext } from '../../store/context'
 import { getResetPasswordCode, resetInput, validateInput } from '../../store/authActions'
 import styles from './styles'
 import { SET_FORGOT_PW_MSG } from '../../store/actionTypes'
 
-const ForgotPassword = ({ onChangeAuthPage }) => {
+const ForgotPassword = ({ onChangeAuthPage, loading }) => {
     const {state, dispatch} = useContext(WGCContext)
     const [username, setUsername] = useState(state.username || '')
     const [usernameStatus, setUsernameStatus] = useState('basic')
     const [usernameCaption, setUsernameCaption] = useState(null)
-    const validateAndSubmit = () => {
+    const validateAndSubmit = ({ loading }) => {
         if (validateInput('username', username, setUsernameStatus, setUsernameCaption)) {
             getResetPasswordCode(username, dispatch)
         }
@@ -44,7 +44,11 @@ const ForgotPassword = ({ onChangeAuthPage }) => {
                 caption={usernameCaption}
             />
             {state.forgotPasswordMsg ? <Text style={styles.loginErrorMessage}>{state.forgotPasswordMsg}</Text> : null}
-            <Button onPress={validateAndSubmit}>
+            <Button
+                size='large'
+                onPress={validateAndSubmit}
+                accessoryLeft={() => <View style={{position: 'absolute', left: 30}}><Spinner size='tiny' status='warning' style={{ opacity: loading ? 1 : 0 }}/></View>}
+            >
                 <Text>
                     Reset Password
                 </Text>

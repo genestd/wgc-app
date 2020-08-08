@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
-import { Input, Button } from '@ui-kitten/components'
+import { Input, Button, Spinner } from '@ui-kitten/components'
 import { WGCContext } from '../../store/context'
 import { register, resetInput, validateInput } from '../../store/authActions'
 import styles from './styles'

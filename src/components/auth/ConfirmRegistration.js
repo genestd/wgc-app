@@ -1,7 +1,7 @@
 import React , { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Text, View, Keyboard } from 'react-native'
-import { Input, Button } from '@ui-kitten/components'
+import { Input, Button, Spinner } from '@ui-kitten/components'
 import { WGCContext } from '../../store/context'
 import { validateInput, resetInput, confirmRegistration } from '../../store/authActions'
 import styles from './styles'
@@ -62,7 +62,11 @@ const ConfirmRegistration = ({ onChangeAuthPage, loading }) => {
                 caption={confirmationCodeCaption}
             />
             {state.confirmSignUpMsg ? <Text style={styles.loginErrorMessage}>{state.confirmSignUpMsg}</Text> : null}
-            <Button onPress={validateAndSubmit} style={styles.authbutton}>
+            <Button
+                size='large'
+                onPress={validateAndSubmit}
+                accessoryLeft={() => <View style={{position: 'absolute', left: 30}}><Spinner size='tiny' status='warning' style={{ opacity: loading ? 1 : 0 }}/></View>}
+            >
                 <Text>
                     Confirm Registration
                 </Text>

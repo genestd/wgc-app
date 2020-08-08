@@ -23,7 +23,6 @@ export async function login (username, password, dispatch) {
         dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.LOGIN })
         dispatch({ type: actions.SET_LOGIN_MSG, message: '' })
         const response = await Auth.signIn(username, password)
-        console.log(response)
         dispatch({ type: actions.LOGIN_SUCCESS, user: response.username })
     } catch (error) {
         console.log(error)

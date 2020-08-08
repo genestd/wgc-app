@@ -9,7 +9,7 @@ import ConfirmRegistration from './ConfirmRegistration'
 import ForgotPassword from './ForgotPassword'
 import ResetPassword from './ResetPassword'
 import { WGCContext } from '../../store/context'
-import { CHANGE_AUTH_PAGE } from '../../store/actionTypes'
+import { CHANGE_AUTH_PAGE, LOGIN, REGISTER, GET_PW_RESET_CODE, RESET_PASSWORD, CONFIRM_SIGN_UP } from '../../store/actionTypes'
 
 const AuthContainer = () => {
     const { state, dispatch } = useContext(WGCContext)
@@ -22,29 +22,32 @@ const AuthContainer = () => {
             case 'login':
                 return <Login
                     onChangeAuthPage={changeAuthPage}
-                    loading={state.pendingActions.includes('LOGIN')}
+                    loading={state.pendingActions.includes(LOGIN)}
                 />
             case 'register':
                 return <Register
                     onChangeAuthPage={changeAuthPage}
-                    loading={state.pendingActions.includes('REGISTER')}
+                    loading={state.pendingActions.includes(REGISTER)}
                 />
             case 'confirmRegistration':
                 return <ConfirmRegistration
                     onChangeAuthPage={changeAuthPage}
+                    loading={state.pendingActions.includes(CONFIRM_SIGN_UP)}
                 />
             case 'forgotPassword':
                 return <ForgotPassword
                     onChangeAuthPage={changeAuthPage}
+                    loading={state.pendingActions.includes(GET_PW_RESET_CODE)}
                 />
             case 'resetPassword':
                 return <ResetPassword
                     onChangeAuthPage={changeAuthPage}
+                    loading={state.pendingActions.includes(GET_PW_RESET_CODE)}
                 />
             default:
                 return <Login
                     onChangeAuthPage={changeAuthPage}
-                    loading={state.pendingActions.includes('LOGIN')}
+                    loading={state.pendingActions.includes(LOGIN)}
                 />
         }
     }

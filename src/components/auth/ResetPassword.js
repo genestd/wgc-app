@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Text, View } from 'react-native'
-import { Input, Button } from '@ui-kitten/components'
+import { Input, Button, Spinner } from '@ui-kitten/components'
 import { WGCContext } from '../../store/context'
 import { resetPassword, resetInput, validateInput } from '../../store/authActions'
 import styles from './styles'
 import { SET_FORGOT_PW_MSG } from '../../store/actionTypes'
 
-const ResetPassword = ({ onChangeAuthPage }) => {
+const ResetPassword = ({ onChangeAuthPage, loading }) => {
     const {state, dispatch} = useContext(WGCContext)
     const [username, setUsername] = useState(state.username || '')
     const [usernameStatus, setUsernameStatus] = useState('basic')
@@ -102,7 +102,12 @@ const ResetPassword = ({ onChangeAuthPage }) => {
                 caption={confirmationCodeCaption}
             />
             {state.resetPasswordMsg ? <Text style={styles.loginErrorMessage}>{state.resetPasswordMsg}</Text> : null}
-            <Button onPress={validateAndSubmit}>
+            <Button
+                size='large'
+                onPress={validateAndSubmit}
+                accessoryLeft={() => <View style={{position: 'absolute', left: 30}}><Spinner size='tiny' status='warning' style={{ opacity: loading ? 1 : 0 }}/></View>}
+
+            >
                 <Text>
                     Reset Password
                 </Text>

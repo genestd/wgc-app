@@ -22,8 +22,6 @@ const Login = ({onChangeAuthPage, loading}) => {
         }
     }
 
-    const LoadingIndicator = () => <Spinner size='tiny' status='warning' style={{ opacity: loading ? 1 : 0}}/>
-
     return (
         <View style={styles.loginContainer}>
             <View style={styles.loginMessageContainer}>
@@ -43,6 +41,7 @@ const Login = ({onChangeAuthPage, loading}) => {
             <Input
                 style={styles.loginInput}
                 placeholder='Username'
+                label={username ? 'Username' : null}
                 size='large'
                 autoCapitalize='none'
                 value={username}
@@ -55,6 +54,7 @@ const Login = ({onChangeAuthPage, loading}) => {
             <Input
                 style={styles.loginInput}
                 placeholder='Password'
+                label={password ? 'Password' : null}
                 size='large'
                 value={password}
                 autoCapitalize='none'
@@ -66,7 +66,11 @@ const Login = ({onChangeAuthPage, loading}) => {
                 caption={passwordCaption}
             />
             {state.loginMessage ? <Text style={styles.loginErrorMessage}>{state.loginMessage}</Text> : null}
-            <Button accessoryLeft={LoadingIndicator} size='large' onPress={validateAndSubmit} style={styles.authbutton}>
+            <Button
+                size='large'
+                onPress={validateAndSubmit}
+                accessoryLeft={() => <View style={{position: 'absolute', left: 30}}><Spinner size='tiny' status='warning' style={{ opacity: loading ? 1 : 0 }}/></View>}
+            >
                 <Text>
                     Sign In
                 </Text>

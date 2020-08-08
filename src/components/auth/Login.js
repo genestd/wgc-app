@@ -75,7 +75,7 @@ const Login = ({onChangeAuthPage, loading}) => {
                 <Button
                     appearance='ghost'
                     size='tiny'
-                    onPress={() => onChangeAuthPage('resetPassword')}
+                    onPress={() => onChangeAuthPage('forgotPassword')}
                 >
                     <Text style={styles.loginLink}>
                         Forgot password?

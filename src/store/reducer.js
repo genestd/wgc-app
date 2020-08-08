@@ -19,6 +19,10 @@ function reducer (state = INITIAL_STATE, action) {
             return { ...state, confirmSignUpMsg: action.message }
         case actions.CONFIRM_SIGN_UP_SUCCESS:
             return { ...state, username: action.username }
+        case actions.SET_FORGOT_PW_MSG:
+            return { ...state, forgotPasswordMsg: action.message }
+        case actions.SET_RESET_PW_MSG:
+            return { ...state, resetPasswordMsg: action.message }
         case actions.LOGOUT:
             return { ...state, loggedIn: false }
         case actions.SAVE_USERNAME:

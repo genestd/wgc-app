@@ -94,6 +94,44 @@ export async function confirmRegistration (username, code, dispatch) {
     }
 }
 
+export async function getResetPasswordCode (username, dispatch) {
+    try {
+        dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.GET_PW_RESET_CODE })
+        const response = await Auth.forgotPassword(username)
+        dispatch({ type: actions.CHANGE_AUTH_PAGE, payload: 'resetPassword'})
+    } catch (error) {
+        console.log(error)
+        let message
+        if (error.code === 'UserNotFoundException') {
+            message = 'User does not exist'
+        } else {
+            message = 'Unable to reset password at this time'
+        }
+        dispatch({ type: actions.SET_FORGOT_PW_MSG, message })
+    } finally {        
+        dispatch({ type: actions.REMOVE_ASYNC_ACTION, action: actions.GET_PW_RESET_CODE })
+    }
+}
+
+export async function resetPassword(username, code, newPassword, dispatch) {
+    try {
+        dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.RESET_PASSWORD })
+        const response = await Auth.forgotPasswordSubmit(username, code, newPassword)
+        dispatch({ type: actions.CHANGE_AUTH_PAGE, payload: 'login'})
+    } catch (error) {
+        console.log(error)
+        let message
+        if (error.code === 'CodeMismatchException') {
+            message = error.message
+        } else {
+            message = 'Unable to reset password at this time'
+        }
+        dispatch({ type: actions.SET_RESET_PW_MSG, message })
+    } finally {        
+        dispatch({ type: actions.REMOVE_ASYNC_ACTION, action: actions.RESET_PASSWORD })
+    }
+}
+
 export function validateInput (type, value, setStatus, setCaption, compareValue) {
     let valid = true
     switch (type) {

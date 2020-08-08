@@ -6,6 +6,7 @@ import Logo from '../shared/Logo'
 import Login from './Login'
 import Register from './Register'
 import ConfirmRegistration from './ConfirmRegistration'
+import ForgotPassword from './ForgotPassword'
 import ResetPassword from './ResetPassword'
 import { WGCContext } from '../../store/context'
 import { CHANGE_AUTH_PAGE } from '../../store/actionTypes'
@@ -29,11 +30,22 @@ const AuthContainer = () => {
                     loading={state.pendingActions.includes('REGISTER')}
                 />
             case 'confirmRegistration':
-                return <ConfirmRegistration />
+                return <ConfirmRegistration
+                    onChangeAuthPage={changeAuthPage}
+                />
+            case 'forgotPassword':
+                return <ForgotPassword
+                    onChangeAuthPage={changeAuthPage}
+                />
             case 'resetPassword':
-                return <ResetPassword />
+                return <ResetPassword
+                    onChangeAuthPage={changeAuthPage}
+                />
             default:
-                return <Login />
+                return <Login
+                    onChangeAuthPage={changeAuthPage}
+                    loading={state.pendingActions.includes('LOGIN')}
+                />
         }
     }
     return (

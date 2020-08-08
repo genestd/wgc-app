@@ -4,6 +4,8 @@ export default {
     authPage: 'register',
     loginMessage: '',
     registerMessage: '',
+    forgotPasswordMsg: '',
+    resetPasswordMsg: '',
     confirmSignUpMsg: '',
     pendingActions: [],
 }

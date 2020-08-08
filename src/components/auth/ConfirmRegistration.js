@@ -8,7 +8,7 @@ import styles from './styles'
 
 const ConfirmRegistration = ({ onChangeAuthPage, loading }) => {
     const {state, dispatch} = useContext(WGCContext)
-    const [username, setUsername] = useState('')
+    const [username, setUsername] = useState(state.username || '')
     const [usernameStatus, setUsernameStatus] = useState('basic')
     const [usernameCaption, setUsernameCaption] = useState(null)
     const [confirmationCode, setConfirmationCode] = useState('')
@@ -30,6 +30,7 @@ const ConfirmRegistration = ({ onChangeAuthPage, loading }) => {
                 <Button
                     appearance='ghost'
                     size='tiny'
+                    onPress={() => onChangeAuthPage('login')}
                 >
                     <Text style={styles.loginLink}>
                         Sign in
@@ -60,18 +61,18 @@ const ConfirmRegistration = ({ onChangeAuthPage, loading }) => {
                 onFocus={() => resetInput(setConfirmationCodeStatus, setConfirmationCodeCaption)}
                 caption={confirmationCodeCaption}
             />
-            <Button onPress={validateAndSubmit}>
+            {state.confirmSignUpMsg ? <Text style={styles.loginErrorMessage}>{state.confirmSignUpMsg}</Text> : null}
+            <Button onPress={validateAndSubmit} style={styles.authbutton}>
                 <Text>
                     Confirm Registration
                 </Text>
             </Button>
-            {state.loginMessage ? <Text style={styles.loginErrorMessage}>{state.confirmSignUpMsg}</Text> : null}
         </View>
     )
 }
 
 ConfirmRegistration.propTypes = {
-    onChangeAuthPage: PropTypes.func,
+    onChangeAuthPage: PropTypes.func.isRequired,
     loading: PropTypes.bool
 }
 

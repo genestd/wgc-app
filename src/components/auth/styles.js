@@ -27,11 +27,11 @@ export default StyleSheet.create({
     loginLink: {
         paddingLeft: 10,
         fontSize: 18,
-        color: 'red',
+        color: '#FC4231',
     },
     loginErrorMessage: {
         fontSize: 18,
-        color: 'red',
+        color: '#FC4231',
         paddingBottom: 6
     },
     registerContainer: {

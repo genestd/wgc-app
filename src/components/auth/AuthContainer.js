@@ -10,6 +10,7 @@ import ForgotPassword from './ForgotPassword'
 import ResetPassword from './ResetPassword'
 import { WGCAuthContext } from './store/context'
 import { CHANGE_AUTH_PAGE, LOGIN, REGISTER, GET_PW_RESET_CODE, RESET_PASSWORD, CONFIRM_SIGN_UP } from './store/actionTypes'
+import colors from '../../styles/colors'
 
 const AuthContainer = () => {
     const { state, dispatch } = useContext(WGCAuthContext)
@@ -56,7 +57,7 @@ const AuthContainer = () => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <LinearGradient
                     style={styles.authGradient}
-                    colors={['rgba(85, 88, 90, 1)', 'rgba(60, 63, 65, 1)', 'rgba(35, 38, 40, 1)']}
+                    colors={[colors.gradientStart, colors.gradientFinish]}
                 >
                     <Logo />
                     {renderComponent(state.authPage)}

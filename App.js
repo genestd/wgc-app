@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import * as eva from '@eva-design/eva'
+import Amplify from '@aws-amplify/core'
+import aws_exports from './src/aws-exports'
+import { ApplicationProvider } from '@ui-kitten/components'
+import { WGCGlobalProvider } from './src/globalStore/context'
+import { WGCAuthProvider } from './src/components/auth/store/context'
+import { default as WGCTheme } from './src/styles/wgcTheme.json'
+
+import Main from './Main'
+Amplify.configure(aws_exports)
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ApplicationProvider {...eva} theme={{...eva.light, ...WGCTheme}}>
+      <WGCGlobalProvider>
+        <WGCAuthProvider>
+          <Main />
+        </WGCAuthProvider>
+      </WGCGlobalProvider>
+    </ApplicationProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

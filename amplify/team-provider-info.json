@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-wgcapp-dev-221458-authRole",
+            "UnauthRoleArn": "arn:aws:iam::514943277137:role/amplify-wgcapp-dev-221458-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::514943277137:role/amplify-wgcapp-dev-221458-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-wgcapp-dev-221458-deployment",
+            "UnauthRoleName": "amplify-wgcapp-dev-221458-unauthRole",
+            "StackName": "amplify-wgcapp-dev-221458",
+            "StackId": "arn:aws:cloudformation:us-west-2:514943277137:stack/amplify-wgcapp-dev-221458/71fbb1d0-d611-11ea-9400-0aa7561f3002",
+            "AmplifyAppId": "ddqfy7sm6o1l9"
+        }
+    }
+}

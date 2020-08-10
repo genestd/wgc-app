@@ -8,11 +8,11 @@ import Register from './Register'
 import ConfirmRegistration from './ConfirmRegistration'
 import ForgotPassword from './ForgotPassword'
 import ResetPassword from './ResetPassword'
-import { WGCContext } from '../../store/context'
-import { CHANGE_AUTH_PAGE, LOGIN, REGISTER, GET_PW_RESET_CODE, RESET_PASSWORD, CONFIRM_SIGN_UP } from '../../store/actionTypes'
+import { WGCAuthContext } from './store/context'
+import { CHANGE_AUTH_PAGE, LOGIN, REGISTER, GET_PW_RESET_CODE, RESET_PASSWORD, CONFIRM_SIGN_UP } from './store/actionTypes'
 
 const AuthContainer = () => {
-    const { state, dispatch } = useContext(WGCContext)
+    const { state, dispatch } = useContext(WGCAuthContext)
     function changeAuthPage (newPage) {
         dispatch({ type: CHANGE_AUTH_PAGE, payload: newPage })
     }

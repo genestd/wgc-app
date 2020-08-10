@@ -1,23 +1,22 @@
 import React, { useContext, useEffect } from 'react'
 import { View, Text, Button } from 'react-native'
 import AuthContainer from './src/components/auth/AuthContainer'
-import { WGCContext } from './src/store/context'
-import { validateUserSession } from './src/store/authActions'
-import { LOGOUT, LOGIN_SUCCESS } from './src/store/actionTypes'
+import { WGCAuthContext } from './src/components/auth/store/context'
+import { validateUserSession } from './src/components/auth/store/authActions'
+import { LOGOUT, LOGIN_SUCCESS } from './src/components/auth/store/actionTypes'
 
 const Main = () => {
-    const {state, dispatch} = useContext(WGCContext)
+    const {state, dispatch} = useContext(WGCAuthContext)
     useEffect(() => {
         async function checkUser() {
-            return await validateUserSession()
+            const user = await validateUserSession()
+            if (!user) {
+                dispatch({ type: LOGOUT })
+            } else {
+                dispatch({ type: LOGIN_SUCCESS, user: user.username })
+            }
         }
         const user = checkUser()
-        if (!user) {
-            dispatch({ type: LOGOUT })
-        } else {
-            dispatch({ type: LOGIN_SUCCESS, user: user.payload})
-        }
-
     }, [])
     return state.loggedIn
         ? (

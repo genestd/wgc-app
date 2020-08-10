@@ -1,7 +1,7 @@
 import INITIAL_STATE from './initialState'
 import * as actions from './actionTypes'
 import { loginSuccess, registerSuccess } from './operations'
-import { addToArrayUnique } from '../utils/index'
+import { addToArrayUnique } from '../../../utils/index'
 
 function reducer (state = INITIAL_STATE, action) {
     switch (action.type) {

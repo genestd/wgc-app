@@ -2,12 +2,12 @@ import React, { useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { Input, Button, Spinner } from '@ui-kitten/components'
-import { WGCContext } from '../../store/context'
-import { register, resetInput, validateInput } from '../../store/authActions'
+import { WGCAuthContext } from './store/context'
+import { register, resetInput, validateInput } from './store/authActions'
 import styles from './styles'
 
 const Register = ({onChangeAuthPage}) => {
-    const {state, dispatch} = useContext(WGCContext)
+    const {state, dispatch} = useContext(WGCAuthContext)
     const [username, setUsername] = useState(state.username || '')
     const [usernameStatus, setUsernameStatus] = useState('basic')
     const [usernameCaption, setUsernameCaption] = useState(null)

@@ -2,7 +2,7 @@ import React from 'react'
 import { Text } from 'react-native'
 import * as actions from './actionTypes'
 import { Auth } from '@aws-amplify/auth'
-import { convertUsPhoneToE164 } from '../utils'
+import { convertUsPhoneToE164 } from '../../../utils'
 
 function wait(time) {
     return new Promise(resolve => {

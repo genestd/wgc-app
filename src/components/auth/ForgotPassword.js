@@ -1,13 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Text, View } from 'react-native'
 import { Input, Button, Spinner } from '@ui-kitten/components'
-import { WGCContext } from '../../store/context'
-import { getResetPasswordCode, resetInput, validateInput } from '../../store/authActions'
+import { WGCAuthContext } from './store/context'
+import { getResetPasswordCode, resetInput, validateInput } from './store/authActions'
+import { SET_FORGOT_PW_MSG } from './store/actionTypes'
 import styles from './styles'
-import { SET_FORGOT_PW_MSG } from '../../store/actionTypes'
 
 const ForgotPassword = ({ onChangeAuthPage, loading }) => {
-    const {state, dispatch} = useContext(WGCContext)
+    const {state, dispatch} = useContext(WGCAuthContext)
     const [username, setUsername] = useState(state.username || '')
     const [usernameStatus, setUsernameStatus] = useState('basic')
     const [usernameCaption, setUsernameCaption] = useState(null)

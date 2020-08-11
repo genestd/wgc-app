@@ -1,10 +1,18 @@
+
+import 'react-native-gesture-handler';
 import React, { useContext, useEffect } from 'react'
-import { View, Text, Button } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import NavDrawer from './src/components/screens/NavDrawer'
+import EventScreen from './src/components/screens/EventScreen'
+import ScoreboardScreen from './src/components/screens/ScoreboardScreen'
+import TeamsScreen from './src/components/screens/TeamsScreen'
 import AuthContainer from './src/components/auth/AuthContainer'
 import { WGCAuthContext } from './src/components/auth/store/context'
 import { validateUserSession } from './src/components/auth/store/authActions'
 import { LOGOUT, LOGIN_SUCCESS } from './src/components/auth/store/actionTypes'
 
+const {Navigator, Screen} = createDrawerNavigator()
 const Main = () => {
     const {state, dispatch} = useContext(WGCAuthContext)
     useEffect(() => {
@@ -20,10 +28,16 @@ const Main = () => {
     }, [])
     return state.loggedIn
         ? (
-            <View style={{flex: 1, backgroundColor: 'green', display: 'flex', justifyContent: 'center'}}>
-                <Button onPress={() => dispatch({type: LOGOUT})} title='Logout'>
-                </Button>
-            </View>
+            <NavigationContainer>
+                <Navigator
+                    drawerContent={props => <NavDrawer {...props}/>}
+                    drawerStyle={{width: '85%'}}
+                >
+                    <Screen name="Events" component={EventScreen} />
+                    <Screen name="Scoreboard" component={ScoreboardScreen} />
+                    <Screen name="My Teams" component={TeamsScreen} />
+                </Navigator>
+            </NavigationContainer>
         )
         : <AuthContainer />
   }

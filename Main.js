@@ -11,6 +11,7 @@ import AuthContainer from './src/components/auth/AuthContainer'
 import { WGCAuthContext } from './src/components/auth/store/context'
 import { validateUserSession } from './src/components/auth/store/authActions'
 import { LOGOUT, LOGIN_SUCCESS } from './src/components/auth/store/actionTypes'
+import SettingsScreen from './src/components/screens/SettingsScreen';
 
 const {Navigator, Screen} = createDrawerNavigator()
 const Main = () => {
@@ -36,6 +37,7 @@ const Main = () => {
                     <Screen name="Events" component={EventScreen} />
                     <Screen name="Scoreboard" component={ScoreboardScreen} />
                     <Screen name="My Teams" component={TeamsScreen} />
+                    <Screen name="Settings" component={SettingsScreen} />
                 </Navigator>
             </NavigationContainer>
         )

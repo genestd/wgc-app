@@ -16,6 +16,7 @@ export const syncUsers = /* GraphQL */ `
     ) {
       items {
         id
+        username
         screenName
         bio
         avatar
@@ -34,6 +35,7 @@ export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
+      username
       screenName
       bio
       avatar
@@ -54,6 +56,7 @@ export const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        username
         screenName
         bio
         avatar

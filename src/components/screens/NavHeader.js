@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native'
 import Constants from 'expo-constants'
 import { Layout, Text, Icon, useTheme } from '@ui-kitten/components'
 import { WGCAuthContext } from '../auth/store/context'
-import { LOGOUT } from '../auth/store/actionTypes'
 
 const NavHeader = ({ pressHandler }) => {
     const theme = useTheme()
@@ -12,12 +11,12 @@ const NavHeader = ({ pressHandler }) => {
         <Layout style={styles.chipContainer}>
             <Layout style={styles.chipRow}>
                 <Icon
-                    style={{ width: 50, height: 50 }}
+                    style={styles.largeIcon}
                     name='person-outline'
                     fill={theme['color-info-500']}
                 />
                 <Icon
-                    style={{ width: 25, height: 25 }}
+                    style={styles.smallIcon}
                     name='options-2-outline'
                     fill={theme['color-info-500']}
                     onPress={pressHandler}
@@ -54,6 +53,14 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingLeft: 7
     },
+    largeIcon: {
+        height: 50,
+        width: 50
+    },
+    smallIcon: {
+        height: 25,
+        width: 25
+    }
 })
 
 export default NavHeader

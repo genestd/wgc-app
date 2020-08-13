@@ -1,8 +1,8 @@
 export function loginSuccess (state, action) {
     return {
         ...state,
-        username: action.user,
-        loggedIn: true,
+        username: action.username,
+        authenticated: true,
         loginMessage: ''
     }
 }
@@ -10,7 +10,7 @@ export function loginSuccess (state, action) {
 export function registerSuccess (state, action) {
     return {
         ...state,
-        username: action.payload,
+        username: action.username,
         registerMessage: '',
         confirmSignUpMsg: 'Enter code from email',
         authPage: 'confirmRegistration'

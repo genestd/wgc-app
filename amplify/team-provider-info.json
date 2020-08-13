@@ -10,6 +10,11 @@
             "StackName": "amplify-wgcapp-dev-221458",
             "StackId": "arn:aws:cloudformation:us-west-2:514943277137:stack/amplify-wgcapp-dev-221458/71fbb1d0-d611-11ea-9400-0aa7561f3002",
             "AmplifyAppId": "ddqfy7sm6o1l9"
+        },
+        "categories": {
+            "auth": {
+                "wgcappcbef7ed0": {}
+            }
         }
     }
 }

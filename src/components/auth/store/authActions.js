@@ -17,7 +17,7 @@ export async function validateUserSession() {
     return new Promise((resolve, reject) => {
         Auth.currentAuthenticatedUser()
             .then(result => {
-                Hub.dispatch('WGCAuth', { event: 'signIn' })
+                Hub.dispatch('WGCAuth', { event: 'signIn', username: result.username })
                 resolve(result)
             })
             .catch(reject)

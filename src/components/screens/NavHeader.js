@@ -2,11 +2,12 @@ import React, { useContext } from 'react'
 import { StyleSheet } from 'react-native'
 import Constants from 'expo-constants'
 import { Layout, Text, Icon, useTheme } from '@ui-kitten/components'
-import { WGCAuthContext } from '../auth/store/context'
+import { WGCGlobalContext } from '../../globalStore/context'
 
 const NavHeader = ({ pressHandler }) => {
     const theme = useTheme()
-    const {state, dispatch} = useContext(WGCAuthContext)
+    const {globalState, globalDispatch} = useContext(WGCGlobalContext)
+
     return (
         <Layout style={styles.chipContainer}>
             <Layout style={styles.chipRow}>
@@ -24,10 +25,10 @@ const NavHeader = ({ pressHandler }) => {
             </Layout>
             <Layout>
                 <Text category='h6' style={styles.chipName}>
-                    {state.displayName || state.username}
+                    {globalState.user.screenName || globalState.user.id}
                 </Text>
                 <Text category='s1' style={styles.chipName}>
-                    {`@${state.username}`}
+                    {`@${globalState.user.id}`}
                 </Text>
             </Layout>
         </Layout>

@@ -1,13 +1,14 @@
 import React, { useContext } from 'react'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { Layout, Icon, useTheme, Text } from '@ui-kitten/components'
-import { WGCAuthContext } from '../auth/store/context'
-import { LOGOUT } from '../auth/store/actionTypes'
+import { WGCGlobalContext } from '../../globalStore/context'
+import { SET_LOGIN } from '../../globalStore/globalActionTypes'
+
 const NavFooter = () => {
     const theme = useTheme()
-    const {state, dispatch} = useContext(WGCAuthContext)
+    const {globalState, globalDispatch} = useContext(WGCGlobalContext)
     return (
-        <TouchableWithoutFeedback onPress={() => dispatch({ type: LOGOUT })}>
+        <TouchableWithoutFeedback onPress={() => globalDispatch({ type: SET_LOGIN, payload: false })}>
             <Layout style={styles.container}>
                 <Icon
                     name='log-out-outline'

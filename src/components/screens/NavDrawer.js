@@ -1,5 +1,5 @@
 import React from 'react'
-import { Drawer, DrawerItem, IndexPath, Icon, Layout, Text } from '@ui-kitten/components'
+import { Drawer, DrawerItem, IndexPath, Icon } from '@ui-kitten/components'
 import NavHeader from './NavHeader'
 import NavFooter from './NavFooter'
 

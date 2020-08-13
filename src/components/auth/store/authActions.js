@@ -1,7 +1,10 @@
 import React from 'react'
 import { Text } from 'react-native'
-import * as actions from './actionTypes'
 import { Auth } from '@aws-amplify/auth'
+import API, { graphqlOperation } from '@aws-amplify/api'
+import { Hub } from '@aws-amplify/core'
+import * as actions from './actionTypes'
+import * as mutations from '../../../graphql/mutations'
 import { convertUsPhoneToE164 } from '../../../utils'
 
 function wait(time) {
@@ -13,17 +16,32 @@ function wait(time) {
 export async function validateUserSession() {
     return new Promise((resolve, reject) => {
         Auth.currentAuthenticatedUser()
-            .then(resolve)
+            .then(result => {
+                Hub.dispatch('WGCAuth', { event: 'signIn' })
+                resolve(result)
+            })
             .catch(reject)
     })
 }
 
+export function authListener (data) {
+    if (data && data.payload && data.payload.event === 'signIn') {
+        Hub.dispatch('WGCAuth', data.payload)
+    }
+}
+
+/*
+* Note that the magic for login happens elsewhere:
+* Auth emits an event at signIn, and a listener for that event
+* will flip the switch
+*/
 export async function login (username, password, dispatch) {
     try {
         dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.LOGIN })
         dispatch({ type: actions.SET_LOGIN_MSG, message: '' })
         const response = await Auth.signIn(username, password)
-        dispatch({ type: actions.LOGIN_SUCCESS, user: response.username })
+        
+        dispatch({ type: actions.LOGIN_SUCCESS, username: response.username })
     } catch (error) {
         console.log(error)
         if (error.code === 'UserNotConfirmedException') {
@@ -55,8 +73,12 @@ export async function register (username, password, email, phone, dispatch) {
                 phone_number: convertUsPhoneToE164(phone)
             }
         })
-        console.log('Sign Up RESPONSE', response)
-        dispatch({ type: actions.REGISTER_SUCCESS, payload: response.user.username })
+        // console.log('Sign Up RESPONSE', response)
+        const apiResult = await API.graphql(graphqlOperation(mutations.createUser, {input: {
+            id: username
+        }}))
+        // console.log('Api Response', apiResult)
+        dispatch({ type: actions.REGISTER_SUCCESS, username })
     } catch (error) {
         console.log(error)
         let message 

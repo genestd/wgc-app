@@ -24,9 +24,9 @@ function reducer (state = INITIAL_STATE, action) {
         case actions.SET_RESET_PW_MSG:
             return { ...state, resetPasswordMsg: action.message }
         case actions.LOGOUT:
-            return { ...state, loggedIn: false }
+            return INITIAL_STATE
         case actions.SAVE_USERNAME:
-            return { ...state, username: action.username }
+            return { ...state, user: { ...state.user, username: action.username } }
         case actions.ADD_ASYNC_ACTION:
             return { ...state, pendingActions: addToArrayUnique(state.pendingActions, action.action) }
         case actions.REMOVE_ASYNC_ACTION:

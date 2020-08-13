@@ -1,7 +1,7 @@
 export default {
-    loggedIn: false,
+    authenticated: false,
     username: '',
-    authPage: 'register',
+    authPage: 'login',
     loginMessage: '',
     registerMessage: '',
     forgotPasswordMsg: '',

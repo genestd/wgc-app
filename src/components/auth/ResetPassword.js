@@ -101,7 +101,11 @@ const ResetPassword = ({ onChangeAuthPage, loading }) => {
                 onFocus={() => resetInput(setConfirmationCodeStatus, setConfirmationCodeCaption)}
                 caption={confirmationCodeCaption}
             />
-            {state.resetPasswordMsg ? <Text style={styles.loginErrorMessage}>{state.resetPasswordMsg}</Text> : null}
+            {state.resetPasswordMsg ? (
+                <View style={styles.errorMessageContainer}>
+                    <Text style={styles.loginErrorMessage}>{state.resetPasswordMsg}</Text>
+                </View>
+             ) : null}
             <Button
                 size='large'
                 onPress={validateAndSubmit}

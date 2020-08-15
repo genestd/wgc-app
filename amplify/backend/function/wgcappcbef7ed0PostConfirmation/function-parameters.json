@@ -1,0 +1,15 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "wgcappcbef7ed0",
+  "functionName": "wgcappcbef7ed0PostConfirmation",
+  "resourceName": "wgcappcbef7ed0PostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/Users/dgenest/.nvm/versions/node/v14.4.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "roleName": "wgcappcbef7ed0PostConfirmation",
+  "skipEdit": true
+}

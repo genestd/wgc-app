@@ -14,6 +14,9 @@
         "categories": {
             "auth": {
                 "wgcappcbef7ed0": {}
+            },
+            "function": {
+                "wgcappcbef7ed0PostConfirmation": {}
             }
         }
     }

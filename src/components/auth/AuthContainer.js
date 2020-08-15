@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { View, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, StyleSheet } from 'react-native'
+import { useTheme } from '@ui-kitten/components'
+import { Snackbar } from 'react-native-paper'
 import Constants from 'expo-constants'
 import { LinearGradient } from 'expo-linear-gradient'
 import Logo from '../shared/Logo'
@@ -9,13 +11,19 @@ import ConfirmRegistration from './ConfirmRegistration'
 import ForgotPassword from './ForgotPassword'
 import ResetPassword from './ResetPassword'
 import { WGCAuthContext } from './store/context'
-import { CHANGE_AUTH_PAGE, LOGIN, REGISTER, GET_PW_RESET_CODE, RESET_PASSWORD, CONFIRM_SIGN_UP } from './store/actionTypes'
+import { CHANGE_AUTH_PAGE, LOGIN, REGISTER, GET_PW_RESET_CODE, RESET_PASSWORD,
+    CONFIRM_SIGN_UP, SHOW_SNACKBAR } from './store/actionTypes'
+import { getSnackbarStyle } from '../../utils'
 import colors from '../../styles/colors'
 
 const AuthContainer = () => {
     const { state, dispatch } = useContext(WGCAuthContext)
+    const theme = useTheme()
     function changeAuthPage (newPage) {
         dispatch({ type: CHANGE_AUTH_PAGE, payload: newPage })
+    }
+    function closeSnackbar () {
+        dispatch({ type: SHOW_SNACKBAR, visible: false })
     }
 
     function renderComponent (pageName) {
@@ -43,7 +51,7 @@ const AuthContainer = () => {
             case 'resetPassword':
                 return <ResetPassword
                     onChangeAuthPage={changeAuthPage}
-                    loading={state.pendingActions.includes(GET_PW_RESET_CODE)}
+                    loading={state.pendingActions.includes(RESET_PASSWORD)}
                 />
             default:
                 return <Login
@@ -64,6 +72,14 @@ const AuthContainer = () => {
                     <View style={{ flex: 1 }} />
                 </LinearGradient>
             </TouchableWithoutFeedback>
+            <Snackbar
+                visible={state.showAuthSnackbar}
+                action={{ label: 'X', onPress: closeSnackbar}}
+                onDismiss={closeSnackbar}
+                style={getSnackbarStyle(state.snackbarType, theme)}
+            >
+                {state.snackbarContent}
+            </Snackbar>
         </KeyboardAvoidingView>
     )
 }

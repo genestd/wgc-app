@@ -8,4 +8,7 @@ export default {
     resetPasswordMsg: '',
     confirmSignUpMsg: '',
     pendingActions: [],
+    showAuthSnackbar: false,
+    snackbarContent: null,
+    snackbarType: 'info'
 }

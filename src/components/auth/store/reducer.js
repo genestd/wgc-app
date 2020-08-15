@@ -1,6 +1,6 @@
 import INITIAL_STATE from './initialState'
 import * as actions from './actionTypes'
-import { loginSuccess, registerSuccess } from './operations'
+import { loginSuccess, registerSuccess, showSnackbar } from './operations'
 import { addToArrayUnique } from '../../../utils/index'
 
 function reducer (state = INITIAL_STATE, action) {
@@ -26,7 +26,9 @@ function reducer (state = INITIAL_STATE, action) {
         case actions.LOGOUT:
             return INITIAL_STATE
         case actions.SAVE_USERNAME:
-            return { ...state, user: { ...state.user, username: action.username } }
+            return { ...state, username: action.username }
+        case actions.SHOW_SNACKBAR:
+            return showSnackbar(state, action)
         case actions.ADD_ASYNC_ACTION:
             return { ...state, pendingActions: addToArrayUnique(state.pendingActions, action.action) }
         case actions.REMOVE_ASYNC_ACTION:

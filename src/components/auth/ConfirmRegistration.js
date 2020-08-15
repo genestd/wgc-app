@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Text, View, Keyboard } from 'react-native'
 import { Input, Button, Spinner } from '@ui-kitten/components'
 import { WGCAuthContext } from './store/context'
-import { validateInput, resetInput, confirmRegistration } from './store/authActions'
+import { validateInput, resetInput, confirmRegistration, resendConfirmCode } from './store/authActions'
 import styles from './styles'
 
 const ConfirmRegistration = ({ onChangeAuthPage, loading }) => {
@@ -19,6 +19,12 @@ const ConfirmRegistration = ({ onChangeAuthPage, loading }) => {
         if (validateInput('username', username, setUsernameStatus, setUsernameCaption)
             && validateInput('confirmationCode', confirmationCode,setConfirmationCodeStatus, setConfirmationCodeCaption)) {
             confirmRegistration(username, confirmationCode, dispatch)
+        }
+    }
+    const validateAndResend = () => {
+        Keyboard.dismiss()
+        if (validateInput('username', username, setUsernameStatus, setUsernameCaption)) {
+            resendConfirmCode(username, dispatch)
         }
     }
     return (
@@ -53,6 +59,7 @@ const ConfirmRegistration = ({ onChangeAuthPage, loading }) => {
                 style={styles.loginInput}
                 placeholder='Confirmation code'
                 size='large'
+                keyboardType='number-pad'
                 value={confirmationCode}
                 status={confirmationCodeStatus}
                 onChangeText={setConfirmationCode}
@@ -71,6 +78,17 @@ const ConfirmRegistration = ({ onChangeAuthPage, loading }) => {
                     Confirm Registration
                 </Text>
             </Button>
+            <View style={styles.loginMessageContainer}>
+                <Button
+                    appearance='ghost'
+                    size='tiny'
+                    onPress={validateAndResend}
+                >
+                    <Text style={styles.loginLink}>
+                        Get new code
+                    </Text>
+                </Button>
+            </View>
         </View>
     )
 }

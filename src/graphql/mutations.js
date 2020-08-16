@@ -9,6 +9,7 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       id
       screenName
+      email
       bio
       avatar
       createdAt
@@ -24,6 +25,7 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       screenName
+      email
       bio
       avatar
       createdAt
@@ -39,6 +41,7 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       screenName
+      email
       bio
       avatar
       createdAt

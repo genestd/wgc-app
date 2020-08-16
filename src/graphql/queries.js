@@ -6,6 +6,7 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       screenName
+      email
       bio
       avatar
       createdAt
@@ -23,6 +24,7 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         screenName
+        email
         bio
         avatar
         createdAt

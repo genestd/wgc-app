@@ -9,8 +9,8 @@ import ScoreboardScreen from './src/components/screens/ScoreboardScreen'
 import TeamsScreen from './src/components/screens/TeamsScreen'
 import AuthContainer from './src/components/auth/AuthContainer'
 import { WGCAuthContext } from './src/components/auth/store/context'
-import { validateUserSession, authListener } from './src/components/auth/store/authActions'
-import { LOGOUT, LOGIN_SUCCESS, SET_LOGIN_MSG } from './src/components/auth/store/actionTypes'
+import { validateUserSession, authListener, logout } from './src/components/auth/store/authActions'
+import { LOGIN_SUCCESS } from './src/components/auth/store/actionTypes'
 import SettingsScreen from './src/components/screens/SettingsScreen'
 import { addHubListeners, removeHubListeners } from './src/utils'
 import { WGCGlobalContext } from './src/globalStore/context'
@@ -21,16 +21,16 @@ const {Navigator, Screen} = createDrawerNavigator()
 const Main = () => {
     const {state, dispatch} = useContext(WGCAuthContext)
     const {globalState, globalDispatch} = useContext(WGCGlobalContext)
-    const WGCAuthListener = (data) => loginHandler(data.payload.username, globalDispatch)
+    const WGCAuthListener = (data) => loginHandler(data.payload, globalDispatch)
 
     useEffect(() => {
         async function checkUser() {
-            const user = await validateUserSession()
-            if (!user) {
-                dispatch({ type: LOGOUT })
-                globalDispatch({ type: SET_LOGIN, payload: false })
-            } else {
+            try {
+                const user = await validateUserSession()
                 dispatch({ type: LOGIN_SUCCESS, username: user.username })
+            } catch (error) {
+                logout(dispatch)
+                globalDispatch({ type: SET_LOGIN, payload: false })
             }
         }
         addHubListeners({

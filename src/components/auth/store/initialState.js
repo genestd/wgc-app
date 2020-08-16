@@ -2,10 +2,13 @@ export default {
     authenticated: false,
     username: '',
     authPage: 'login',
-    loginMessage: '',
-    registerMessage: '',
+    loginMsg: '',
+    registerMsg: '',
     forgotPasswordMsg: '',
     resetPasswordMsg: '',
     confirmSignUpMsg: '',
     pendingActions: [],
+    showAuthSnackbar: false,
+    snackbarContent: null,
+    snackbarType: 'info'
 }

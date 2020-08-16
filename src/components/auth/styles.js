@@ -37,4 +37,13 @@ export default StyleSheet.create({
     registerContainer: {
         paddingBottom: 20
     },
+    errorMessageContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingBottom: 10,
+        flexWrap: 'wrap',
+        maxWidth: '80%'
+    }
 })

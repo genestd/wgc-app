@@ -12,7 +12,16 @@ export function registerSuccess (state, action) {
         ...state,
         username: action.username,
         registerMessage: '',
-        confirmSignUpMsg: 'Enter code from email',
-        authPage: 'confirmRegistration'
+        confirmSignUpMsg: '',
+        authPage: 'confirmSignUp'
+    }
+}
+
+export function showSnackbar (state, action) {
+    return {
+        ...state,
+        showAuthSnackbar: action.visible,
+        snackbarContent: action.content || null,
+        snackbarType: action.msgType || 'info'
     }
 }

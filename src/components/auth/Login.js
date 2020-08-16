@@ -58,6 +58,7 @@ const Login = ({onChangeAuthPage, loading}) => {
                 size='large'
                 value={password}
                 autoCapitalize='none'
+                textContentType='none'
                 secureTextEntry
                 onChangeText={setPassword}
                 status={passwordStatus}
@@ -65,7 +66,7 @@ const Login = ({onChangeAuthPage, loading}) => {
                 onFocus={() => resetInput(setPasswordStatus, setPasswordCaption)}
                 caption={passwordCaption}
             />
-            {state.loginMessage ? <Text style={styles.loginErrorMessage}>{state.loginMessage}</Text> : null}
+            {state.loginMsg ? <Text style={styles.loginErrorMessage}>{state.loginMsg}</Text> : null}
             <Button
                 size='large'
                 onPress={validateAndSubmit}

@@ -1,6 +1,6 @@
 {
-    "identityPoolName": "wgcappcbef7ed0_identitypool_cbef7ed0",
-    "allowUnauthenticatedIdentities": false,
+    "identityPoolName": "wgcapp90ae41be_identitypool_90ae41be",
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "wgcappcbef7ed0",
     "userPoolName": "wgcappcbef7ed0_userpool_cbef7ed0",
     "autoVerifiedAttributes": [
@@ -12,8 +12,8 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
-    "emailVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "WGC Verification Code",
+    "emailVerificationMessage": "Your WGC verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
@@ -21,7 +21,7 @@
         "email"
     ],
     "userpoolClientGenerateSecret": true,
-    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientRefreshTokenValidity": "7",
     "userpoolClientWriteAttributes": [
         "email"
     ],
@@ -45,7 +45,26 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
     "userPoolGroupList": [],
-    "dependsOn": []
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "wgcappcbef7ed0PostConfirmation",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{\"PostConfirmation\":[\"custom\"]}",
+    "hostedUI": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "thirdPartyAuth": false
 }

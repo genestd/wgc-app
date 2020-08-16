@@ -3,8 +3,71 @@
 		"wgcappcbef7ed0": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
-			"dependsOn": [],
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "wgcappcbef7ed0PostConfirmation",
+					"triggerProvider": "Cognito",
+					"attributes": [
+						"Arn",
+						"Name"
+					]
+				}
+			],
 			"customAuth": false
+		}
+	},
+	"api": {
+		"WGCAppAPI": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"defaultAuthentication": {
+						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
+						"userPoolConfig": {
+							"userPoolId": "authwgcappcbef7ed0"
+						}
+					},
+					"additionalAuthenticationProviders": []
+				}
+			}
+		}
+	},
+	"function": {
+		"WGCCreateUser": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "api",
+					"resourceName": "WGCAppAPI",
+					"attributes": [
+						"GraphQLAPIIdOutput"
+					]
+				}
+			]
+		},
+		"wgcappcbef7ed0PostConfirmation": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda"
+		},
+		"WGCCommonLayer": {
+			"runtimes": [],
+			"layerVersionMap": {
+				"1": {
+					"permissions": [
+						{
+							"type": "private"
+						}
+					]
+				}
+			},
+			"providerPlugin": "awscloudformation",
+			"service": "LambdaLayer",
+			"build": true
 		}
 	}
 }

@@ -20,13 +20,21 @@ export async function validateUserSession() {
                 Hub.dispatch('WGCAuth', { event: 'signIn', username: result.username })
                 resolve(result)
             })
-            .catch(reject)
+            .catch(err => {
+                console.log(err)
+                reject(err)
+            })
     })
 }
 
 export function authListener (data) {
-    if (data && data.payload && data.payload.event === 'signIn') {
-        Hub.dispatch('WGCAuth', data.payload)
+    if (data && data.payload) {
+        console.log(data.payload)
+        if (data.payload.event === 'signIn') {
+            validateUserSession()
+        } else if (data.payload.event === 'signOut') {
+            Hub.dispatch('WGCAuth', { event: data.payload.event })
+        }
     }
 }
 
@@ -45,7 +53,7 @@ export async function login (username, password, dispatch) {
     } catch (error) {
         console.log(error)
         if (error.code === 'UserNotConfirmedException') {
-            dispatch({ type: actions.SET_CONFIRM_SIGN_UP_MSG, message: 'Did you get a confirmation code?'})
+            dispatch({ type: actions.SHOW_SNACKBAR, visible: true, msgType: 'warning', content: 'Your account is not confirmed. Enter code from email, or request new code.'})
             dispatch({ type: actions.SAVE_USERNAME, username })
             return dispatch({ type: actions.CHANGE_AUTH_PAGE, payload: 'confirmRegistration'})
         }
@@ -74,10 +82,11 @@ export async function register (username, password, email, phone, dispatch) {
             }
         })
         // console.log('Sign Up RESPONSE', response)
-        const apiResult = await API.graphql(graphqlOperation(mutations.createUser, {input: {
-            id: username
-        }}))
-        // console.log('Api Response', apiResult)
+        // const apiResult = await API.graphql(graphqlOperation(mutations.createUser, {input: {
+        //     id: username
+        // }}))
+        // // console.log('Api Response', apiResult)
+        dispatch({ type: actions.SHOW_SNACKBAR, visible: true, msgType: 'success', content: 'Username registered...please confirm your email'})
         dispatch({ type: actions.REGISTER_SUCCESS, username })
     } catch (error) {
         console.log(error)
@@ -98,7 +107,7 @@ export async function confirmRegistration (username, code, dispatch) {
         dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.CONFIRM_SIGN_UP })
         dispatch({ type: actions.SET_CONFIRM_SIGN_UP_MSG, message: '' })
         const response = await Auth.confirmSignUp(username, code)
-        console.log('Confirm Sign Up RESPONSE', response)
+        dispatch({ type: actions.SHOW_SNACKBAR, visible: true, msgType: 'success', content: `You're confirmed - please sign in`})
         dispatch({ type: actions.CONFIRM_SIGN_UP_SUCCESS, username })
         dispatch({ type: actions.CHANGE_AUTH_PAGE, payload: 'login'})
     } catch (error) {
@@ -115,11 +124,32 @@ export async function confirmRegistration (username, code, dispatch) {
     }
 }
 
+export async function resendConfirmCode (username, dispatch) {
+    try {
+        dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.CONFIRM_SIGN_UP })
+        dispatch({ type: actions.SET_CONFIRM_SIGN_UP_MSG, message: '' })
+        const response = await Auth.resendSignUp(username)
+        console.log('Resend Confirm RESPONSE', response)
+        dispatch({ type: actions.SHOW_SNACKBAR, visible: true, msgType: 'success', content: 'Code sent to email for this user'})
+    } catch (error) {
+        console.log(error)
+        let message = 'Unable to confirm registration, please try again later'
+        if (error.code === 'InvalidParameterException') {
+            message = error.message
+        }
+        dispatch({ type: actions.SET_CONFIRM_SIGN_UP_MSG, message })
+    } finally {
+        dispatch({ type: actions.REMOVE_ASYNC_ACTION, action: actions.CONFIRM_SIGN_UP }) 
+    }
+}
+
 export async function getResetPasswordCode (username, dispatch) {
     try {
         dispatch({ type: actions.ADD_ASYNC_ACTION, action: actions.GET_PW_RESET_CODE })
         const response = await Auth.forgotPassword(username)
         dispatch({ type: actions.CHANGE_AUTH_PAGE, payload: 'resetPassword'})
+        dispatch({ type: actions.SAVE_USERNAME, username })
+        dispatch({ type: actions.SHOW_SNACKBAR, visible: true, msgType: 'success', content: 'Use the emailed code to reset your password'})
     } catch (error) {
         console.log(error)
         let message
@@ -153,6 +183,14 @@ export async function resetPassword(username, code, newPassword, dispatch) {
     }
 }
 
+export async function logout (dispatch) {
+    try {
+        await Auth.signOut()
+        dispatch({ type: actions.LOGOUT })
+    } catch (err) {
+        console.log(err)
+    }
+}
 export function validateInput (type, value, setStatus, setCaption, compareValue) {
     let valid = true
     switch (type) {

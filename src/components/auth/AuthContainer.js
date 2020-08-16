@@ -38,7 +38,7 @@ const AuthContainer = () => {
                     onChangeAuthPage={changeAuthPage}
                     loading={state.pendingActions.includes(REGISTER)}
                 />
-            case 'confirmRegistration':
+            case 'confirmSignUp':
                 return <ConfirmRegistration
                     onChangeAuthPage={changeAuthPage}
                     loading={state.pendingActions.includes(CONFIRM_SIGN_UP)}

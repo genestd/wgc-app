@@ -129,7 +129,7 @@ const Register = ({onChangeAuthPage}) => {
             <Button onPress={validateAndSubmit}>
                 Register
             </Button>
-            {state.registerMessage ? <Text style={styles.loginErrorMessage}>{state.registerMessage}</Text> : null}
+            {state.registerMsg ? <Text style={styles.loginErrorMessage}>{state.registerMsg}</Text> : null}
         </View>
     )
 }

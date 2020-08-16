@@ -6,7 +6,7 @@ import { addToArrayUnique } from '../../../utils/index'
 function reducer (state = INITIAL_STATE, action) {
     switch (action.type) {
         case actions.CHANGE_AUTH_PAGE:
-            return { ...state, authPage: action.payload }
+            return { ...state, authPage: action.payload, state[`${state.authPage}Msg`]: '' }
         case actions.LOGIN_SUCCESS:
             return loginSuccess(state, action)
         case actions.SET_LOGIN_MSG:

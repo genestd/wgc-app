@@ -13,7 +13,7 @@ export function registerSuccess (state, action) {
         username: action.username,
         registerMessage: '',
         confirmSignUpMsg: '',
-        authPage: 'confirmRegistration'
+        authPage: 'confirmSignUp'
     }
 }
 

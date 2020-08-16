@@ -25,12 +25,12 @@ const Main = () => {
 
     useEffect(() => {
         async function checkUser() {
-            const user = await validateUserSession()
-            if (!user) {
+            try {
+                const user = await validateUserSession()
+                dispatch({ type: LOGIN_SUCCESS, username: user.username })
+            } catch (error) {
                 logout(dispatch)
                 globalDispatch({ type: SET_LOGIN, payload: false })
-            } else {
-                dispatch({ type: LOGIN_SUCCESS, username: user.username })
             }
         }
         addHubListeners({

@@ -1,5 +1,6 @@
 export default {
     loggedIn: false,
     pendingActions: [],
-    user: {}
+    user: {},
+    events: []
 }

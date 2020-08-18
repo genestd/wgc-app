@@ -4,6 +4,7 @@ import { Card, Text, Layout, Button } from '@ui-kitten/components'
 import { StyleSheet, Image } from 'react-native'
 import { format } from 'date-fns'
 import UserIcon from '../../shared/UserIcon'
+import { getFirst30Words } from '../../../utils'
 
 const EventCard = ({event, navigation}) => {
     return (
@@ -13,7 +14,7 @@ const EventCard = ({event, navigation}) => {
             onPress={() => navigation.navigate('Detail', { event })}
         >
             <Layout marginHorizontal={-16}>
-                <Text style={styles.bodyText}>{event.description}</Text>
+                <Text style={styles.bodyText}>{getFirst30Words(event.description)}</Text>
             </Layout>
             <Layout marginHorizontal={-16}>
                 <RegisteredUserList users={event.registeredUsers || []} style={{...styles.row, ...styles.right}} />

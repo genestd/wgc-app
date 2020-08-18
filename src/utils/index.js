@@ -45,3 +45,11 @@ export const getSnackbarStyle = (type, theme) => {
             }
     }
 }
+
+export const getFirst30Words = (str) => {
+    let start = str.split(' ')
+    if (start.length > 30) {
+        start = start.slice(0, 31).concat('...')
+    }
+    return start.join(' ')
+}

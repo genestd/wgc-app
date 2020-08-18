@@ -9,7 +9,7 @@ const ScreenHeader = props => {
     return (
         <Layout level='4' style={styles.header}>
             <Icon name={props.iconName} fill={theme['color-info-500']} style={styles.icon} />
-            <Text>{props.title}</Text>
+            <Text category='s1' style={{color: theme['color-basic-900']}}>{props.title}</Text>
         </Layout>
     )
 }

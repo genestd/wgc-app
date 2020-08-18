@@ -40,3 +40,51 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
+export const onCreateEvent = /* GraphQL */ `
+  subscription OnCreateEvent {
+    onCreateEvent {
+      id
+      name
+      description
+      tagline
+      startDate
+      endDate
+      location
+      mainImage
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateEvent = /* GraphQL */ `
+  subscription OnUpdateEvent {
+    onUpdateEvent {
+      id
+      name
+      description
+      tagline
+      startDate
+      endDate
+      location
+      mainImage
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteEvent = /* GraphQL */ `
+  subscription OnDeleteEvent {
+    onDeleteEvent {
+      id
+      name
+      description
+      tagline
+      startDate
+      endDate
+      location
+      mainImage
+      createdAt
+      updatedAt
+    }
+  }
+`;

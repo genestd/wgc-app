@@ -34,3 +34,42 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
+export const getEvent = /* GraphQL */ `
+  query GetEvent($id: ID!) {
+    getEvent(id: $id) {
+      id
+      name
+      description
+      tagline
+      startDate
+      endDate
+      location
+      mainImage
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listEvents = /* GraphQL */ `
+  query ListEvents(
+    $filter: ModelEventFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        tagline
+        startDate
+        endDate
+        location
+        mainImage
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

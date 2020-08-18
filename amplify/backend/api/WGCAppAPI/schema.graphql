@@ -5,3 +5,22 @@ type User @model {
   bio: String
   avatar: String
 }
+
+type Event @model {
+  id: ID!
+  name: String
+  description: String
+  tagline: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  location: String
+  mainImage: String
+  registrationType: RegistrationType
+  registeredUsers: [User]
+  invitedUsers: [User]
+}
+
+enum RegistrationType {
+  PUBLIC
+  PRIVATE
+}

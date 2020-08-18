@@ -45,6 +45,25 @@ export const getEvent = /* GraphQL */ `
       endDate
       location
       mainImage
+      registrationType
+      registeredUsers {
+        id
+        screenName
+        email
+        bio
+        avatar
+        createdAt
+        updatedAt
+      }
+      invitedUsers {
+        id
+        screenName
+        email
+        bio
+        avatar
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -66,6 +85,25 @@ export const listEvents = /* GraphQL */ `
         endDate
         location
         mainImage
+        registrationType
+        registeredUsers {
+          id
+          screenName
+          email
+          bio
+          avatar
+          createdAt
+          updatedAt
+        }
+        invitedUsers {
+          id
+          screenName
+          email
+          bio
+          avatar
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }

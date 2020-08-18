@@ -51,6 +51,25 @@ export const onCreateEvent = /* GraphQL */ `
       endDate
       location
       mainImage
+      registrationType
+      registeredUsers {
+        id
+        screenName
+        email
+        bio
+        avatar
+        createdAt
+        updatedAt
+      }
+      invitedUsers {
+        id
+        screenName
+        email
+        bio
+        avatar
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -67,6 +86,25 @@ export const onUpdateEvent = /* GraphQL */ `
       endDate
       location
       mainImage
+      registrationType
+      registeredUsers {
+        id
+        screenName
+        email
+        bio
+        avatar
+        createdAt
+        updatedAt
+      }
+      invitedUsers {
+        id
+        screenName
+        email
+        bio
+        avatar
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -83,6 +121,25 @@ export const onDeleteEvent = /* GraphQL */ `
       endDate
       location
       mainImage
+      registrationType
+      registeredUsers {
+        id
+        screenName
+        email
+        bio
+        avatar
+        createdAt
+        updatedAt
+      }
+      invitedUsers {
+        id
+        screenName
+        email
+        bio
+        avatar
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }

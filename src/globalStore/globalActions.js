@@ -1,4 +1,5 @@
 import { API, graphqlOperation } from '@aws-amplify/api'
+import { compareDesc, parseISO } from 'date-fns'
 import * as queries from '../graphql/queries'
 import * as actions from './globalActionTypes'
 
@@ -23,6 +24,7 @@ export const fetchEvents = async (globalDispatch) => {
     try {
         globalDispatch({ type: actions.ADD_PENDING_ACTION, actionType: actions.FETCH_EVENTS })
         const result = await API.graphql(graphqlOperation(queries.listEvents))
+        result.data.listEvents.items.sort((a, b) => compareDesc(parseISO(a.startDate), parseISO(b.startDate)))
         globalDispatch({ type: actions.FETCH_EVENTS_SUCCESS, items: result.data.listEvents.items })
         globalDispatch({ type: actions.REMOVE_PENDING_ACTION, actionType: actions.FETCH_EVENTS })
     } catch (err) {

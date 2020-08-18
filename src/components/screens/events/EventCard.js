@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Card, Text, Layout } from '@ui-kitten/components'
+import { Card, Text, Layout, Button } from '@ui-kitten/components'
 import { StyleSheet, Image } from 'react-native'
 import { format } from 'date-fns'
+import UserIcon from '../../shared/UserIcon'
 
 const EventCard = ({event, navigation}) => {
     return (
@@ -11,8 +12,11 @@ const EventCard = ({event, navigation}) => {
             footer={() => <Footer location={event.location} startDate={event.startDate} endDate={event.endDate} />}
             onPress={() => navigation.navigate('Detail', { event })}
         >
-            <Layout>
+            <Layout marginHorizontal={-16}>
                 <Text style={styles.bodyText}>{event.description}</Text>
+            </Layout>
+            <Layout marginHorizontal={-16}>
+                <RegisteredUserList users={event.registeredUsers || []} style={{...styles.row, ...styles.right}} />
             </Layout>
         </Card>
     )
@@ -54,6 +58,25 @@ const Footer = ({ location, startDate, endDate }) => (
         </Layout>
     </Layout>
 )
+
+const RegisteredUserList = ({ style, users = []}) => {
+    return (
+        <Layout style={{...style}}>
+            {users.length == 0
+                ? <Button appearance='ghost' style={{paddingRight: 0}}>Be first to register</Button>
+                : users.map(user => <UserIcon key={user.id} avatar={user.avatar} username={user.username} /> )}
+        </Layout>
+    )
+}
+
+RegisteredUserList.propTypes = {
+    users: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        avatar: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired
+    }))
+}
+
 const styles = StyleSheet.create({
     header: {
         padding: 0,
@@ -81,6 +104,9 @@ const styles = StyleSheet.create({
     row: {
         display: 'flex',
         flexDirection: 'row',
+    },
+    right: {
+        justifyContent: 'flex-end',
     },
     footer: {
         display: 'flex',

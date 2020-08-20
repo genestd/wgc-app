@@ -4,6 +4,7 @@ type User @model {
   email: String
   bio: String
   avatar: String
+  events: [EventUsers] @connection(name: "EventUser", keyName: "byUser", fields: ["id"])
 }
 
 type Event @model {
@@ -14,10 +15,23 @@ type Event @model {
   startDate: AWSDateTime
   endDate: AWSDateTime
   location: String
-  mainImage: String
+  primaryImage: String
+  secondaryImage: String
   registrationType: RegistrationType
-  registeredUsers: [User]
+  registeredUsers: [EventUsers] @connection(name: "EventUser", keyName: "byEvent", fields: ["id"])
   invitedUsers: [User]
+}
+
+type EventUsers
+  @model
+  @key(fields: ["eventId", "userId"])
+  @key(name: "byEvent", fields: ["eventId", "userId"])
+  @key(name: "byUser", fields: ["userId", "eventId"]) {
+  id: ID!
+  eventId: ID!
+  userId: ID!
+  event: Event! @connection(fields: ["eventId"])
+  user: User! @connection(fields: ["userId"])
 }
 
 enum RegistrationType {

@@ -12,6 +12,16 @@ export const createUser = /* GraphQL */ `
       email
       bio
       avatar
+      events {
+        items {
+          id
+          eventId
+          userId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -28,6 +38,16 @@ export const updateUser = /* GraphQL */ `
       email
       bio
       avatar
+      events {
+        items {
+          id
+          eventId
+          userId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -44,6 +64,16 @@ export const deleteUser = /* GraphQL */ `
       email
       bio
       avatar
+      events {
+        items {
+          id
+          eventId
+          userId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -62,16 +92,18 @@ export const createEvent = /* GraphQL */ `
       startDate
       endDate
       location
-      mainImage
+      primaryImage
+      secondaryImage
       registrationType
       registeredUsers {
-        id
-        screenName
-        email
-        bio
-        avatar
-        createdAt
-        updatedAt
+        items {
+          id
+          eventId
+          userId
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       invitedUsers {
         id
@@ -79,6 +111,9 @@ export const createEvent = /* GraphQL */ `
         email
         bio
         avatar
+        events {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -100,16 +135,18 @@ export const updateEvent = /* GraphQL */ `
       startDate
       endDate
       location
-      mainImage
+      primaryImage
+      secondaryImage
       registrationType
       registeredUsers {
-        id
-        screenName
-        email
-        bio
-        avatar
-        createdAt
-        updatedAt
+        items {
+          id
+          eventId
+          userId
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       invitedUsers {
         id
@@ -117,6 +154,9 @@ export const updateEvent = /* GraphQL */ `
         email
         bio
         avatar
+        events {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -138,16 +178,18 @@ export const deleteEvent = /* GraphQL */ `
       startDate
       endDate
       location
-      mainImage
+      primaryImage
+      secondaryImage
       registrationType
       registeredUsers {
-        id
-        screenName
-        email
-        bio
-        avatar
-        createdAt
-        updatedAt
+        items {
+          id
+          eventId
+          userId
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       invitedUsers {
         id
@@ -155,6 +197,165 @@ export const deleteEvent = /* GraphQL */ `
         email
         bio
         avatar
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createEventUsers = /* GraphQL */ `
+  mutation CreateEventUsers(
+    $input: CreateEventUsersInput!
+    $condition: ModelEventUsersConditionInput
+  ) {
+    createEventUsers(input: $input, condition: $condition) {
+      id
+      eventId
+      userId
+      event {
+        id
+        name
+        description
+        tagline
+        startDate
+        endDate
+        location
+        primaryImage
+        secondaryImage
+        registrationType
+        registeredUsers {
+          nextToken
+        }
+        invitedUsers {
+          id
+          screenName
+          email
+          bio
+          avatar
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        screenName
+        email
+        bio
+        avatar
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateEventUsers = /* GraphQL */ `
+  mutation UpdateEventUsers(
+    $input: UpdateEventUsersInput!
+    $condition: ModelEventUsersConditionInput
+  ) {
+    updateEventUsers(input: $input, condition: $condition) {
+      id
+      eventId
+      userId
+      event {
+        id
+        name
+        description
+        tagline
+        startDate
+        endDate
+        location
+        primaryImage
+        secondaryImage
+        registrationType
+        registeredUsers {
+          nextToken
+        }
+        invitedUsers {
+          id
+          screenName
+          email
+          bio
+          avatar
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        screenName
+        email
+        bio
+        avatar
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteEventUsers = /* GraphQL */ `
+  mutation DeleteEventUsers(
+    $input: DeleteEventUsersInput!
+    $condition: ModelEventUsersConditionInput
+  ) {
+    deleteEventUsers(input: $input, condition: $condition) {
+      id
+      eventId
+      userId
+      event {
+        id
+        name
+        description
+        tagline
+        startDate
+        endDate
+        location
+        primaryImage
+        secondaryImage
+        registrationType
+        registeredUsers {
+          nextToken
+        }
+        invitedUsers {
+          id
+          screenName
+          email
+          bio
+          avatar
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        screenName
+        email
+        bio
+        avatar
+        events {
+          nextToken
+        }
         createdAt
         updatedAt
       }

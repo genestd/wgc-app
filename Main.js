@@ -16,6 +16,7 @@ import { addHubListeners, removeHubListeners } from './src/utils'
 import { WGCGlobalContext } from './src/globalStore/context'
 import { SET_LOGIN } from './src/globalStore/globalActionTypes'
 import { loginHandler } from './src/globalStore/globalActions';
+import { addSubscriptions } from './src/services/db/dbUtils';
 
 const {Navigator, Screen} = createDrawerNavigator()
 const Main = () => {
@@ -28,7 +29,9 @@ const Main = () => {
             try {
                 const user = await validateUserSession()
                 dispatch({ type: LOGIN_SUCCESS, username: user.username })
+                const subs = addSubscriptions()
             } catch (error) {
+                console.log(error)
                 logout(dispatch)
                 globalDispatch({ type: SET_LOGIN, payload: false })
             }

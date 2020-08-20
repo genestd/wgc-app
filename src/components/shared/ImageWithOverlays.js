@@ -8,9 +8,9 @@ const ImageWithOverlays = ({ imageUrl, height = 200, overlayTop, overlayBottom }
             <View style={styles.topContainer}>
                 {overlayTop}
             </View>
-            <View style={styles.bottomContainer}>
+            {overlayBottom && <View style={styles.bottomContainer}>
                 {overlayBottom}
-            </View>
+            </View>}
         </View>
     )
 }

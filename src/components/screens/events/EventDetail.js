@@ -16,7 +16,20 @@ const EventDetail = (props) => {
                     overlayBottom={<Text category='s1' style={styles.imageOverlayText}>{event.tagline}</Text>} 
                 />
             </Layout>
-            <Layout>
+            <Layout style={styles.section}>
+                <Text>
+                    {event.description}
+                </Text>
+            </Layout>
+            <Layout style={styles.section}>
+                <Text category='h4'>
+                    Scoreboard
+                </Text>
+            </Layout>
+            <Layout style={styles.section}>
+                <Text category='h4'>
+                    Who's Coming
+                </Text>
             </Layout>
         </ScrollView>
     )
@@ -36,6 +49,9 @@ const styles = StyleSheet.create({
     },
     imageOverlayText: {
         color: 'white'
+    },
+    section: {
+        padding: 15
     }
 })
 

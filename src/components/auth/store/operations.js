@@ -3,7 +3,7 @@ export function loginSuccess (state, action) {
         ...state,
         username: action.username,
         authenticated: true,
-        loginMessage: ''
+        loginMsg: ''
     }
 }
 
@@ -11,7 +11,7 @@ export function registerSuccess (state, action) {
     return {
         ...state,
         username: action.username,
-        registerMessage: '',
+        registerMsg: '',
         confirmSignUpMsg: '',
         authPage: 'confirmSignUp'
     }

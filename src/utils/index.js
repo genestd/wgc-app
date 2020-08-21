@@ -1,4 +1,5 @@
 import { Hub } from '@aws-amplify/core'
+import { PUBLIC } from '../constants/app'
 
 export const addToArrayUnique = (arr, item) => {
     return arr.find(element => element === item) ? [...arr] : [...arr, item]
@@ -44,4 +45,26 @@ export const getSnackbarStyle = (type, theme) => {
                 backgroundColor: theme['color-info-500']
             }
     }
+}
+
+export const getFirst30Words = (str) => {
+    let start = str.split(' ')
+    if (start.length > 30) {
+        start = start.slice(0, 31).concat('...')
+    }
+    return start.join(' ')
+}
+
+export const canRegister = (event, user) => {
+    const regList = Array.isArray(event.registeredUsers.items) ? event.registeredUsers.items : []
+    const inviteList = Array.isArray(event.invitedUsers) ? event.invitedUsers : []
+
+    if (event.registrationType === PUBLIC) {
+        return !regList.find(item => item.userId === user.id) 
+    }
+    // PRIVATE events
+    if (inviteList.includes(user.id)) {
+        return !regList.find(item => item.userId === user.id) 
+    }
+    return false
 }

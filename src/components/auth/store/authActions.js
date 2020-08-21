@@ -29,7 +29,7 @@ export async function validateUserSession() {
 
 export function authListener (data) {
     if (data && data.payload) {
-        console.log(data.payload)
+        // console.log(data.payload)
         if (data.payload.event === 'signIn') {
             validateUserSession()
         } else if (data.payload.event === 'signOut') {
@@ -81,11 +81,6 @@ export async function register (username, password, email, phone, dispatch) {
                 phone_number: convertUsPhoneToE164(phone)
             }
         })
-        // console.log('Sign Up RESPONSE', response)
-        // const apiResult = await API.graphql(graphqlOperation(mutations.createUser, {input: {
-        //     id: username
-        // }}))
-        // // console.log('Api Response', apiResult)
         dispatch({ type: actions.SHOW_SNACKBAR, visible: true, msgType: 'success', content: 'Username registered...please confirm your email'})
         dispatch({ type: actions.REGISTER_SUCCESS, username })
     } catch (error) {

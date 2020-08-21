@@ -4,4 +4,37 @@ type User @model {
   email: String
   bio: String
   avatar: String
+  events: [EventUsers] @connection(name: "EventUser", keyName: "byUser", fields: ["id"])
+}
+
+type Event @model {
+  id: ID!
+  name: String
+  description: String
+  tagline: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  location: String
+  primaryImage: String
+  secondaryImage: String
+  registrationType: RegistrationType
+  registeredUsers: [EventUsers] @connection(name: "EventUser", keyName: "byEvent", fields: ["id"])
+  invitedUsers: [User]
+}
+
+type EventUsers
+  @model
+  @key(fields: ["eventId", "userId"])
+  @key(name: "byEvent", fields: ["eventId", "userId"])
+  @key(name: "byUser", fields: ["userId", "eventId"]) {
+  id: ID!
+  eventId: ID!
+  userId: ID!
+  event: Event! @connection(fields: ["eventId"])
+  user: User! @connection(fields: ["userId"])
+}
+
+enum RegistrationType {
+  PUBLIC
+  PRIVATE
 }

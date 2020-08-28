@@ -36,7 +36,7 @@ const EventCard = ({event, navigation}) => {
                         source={require('../../shared/success-check.json')}
                         loop={false}
                         autoPlay={globalState.sessionRegistrations.includes(event.id)}
-                        style={{height: 50}}
+                        style={{height: 50, paddingBottom: 8, transform: [{ translateX: 15 }, {translateY: -1 }]}}
                     /> 
                     {showRegistration && (
                         <Button
@@ -72,7 +72,7 @@ const RegisteredUserList = ({ style, users = []}) => {
     return (
         <Layout>
             <Layout style={{...styles.row, position: 'relative', minHeight: 50}}>
-                {users.slice(0,4).map((user, index) => <UserIcon key={user.userId} avatar={user.avatar} username={user.userId} offset={20*index} /> )}
+                {users.slice(0,4).map((user, index) => <UserIcon key={user.userId} avatar={user.avatar} username={user.userId} offset={22*index} /> )}
             </Layout>
             {users.length > 4 && <Text>+{users.length - 4} more</Text>}
         </Layout>

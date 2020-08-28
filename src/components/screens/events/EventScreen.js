@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import EventList from './EventList'
 import EventDetail from './EventDetail'

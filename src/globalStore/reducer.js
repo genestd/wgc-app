@@ -12,6 +12,7 @@ function reducer(state=INITIAL_STATE, action) {
         case actions.SET_LOGIN:
             return {...state, loggedIn: action.payload}
         case actions.SET_USER:
+            console.log('set user action', action)
             return { ...state, user: action.user }
         case actions.UPDATE_USER:
             return { ...state, user: { ...state.user, ...action.user }}
@@ -19,6 +20,9 @@ function reducer(state=INITIAL_STATE, action) {
             return registerUserSuccess(state, action)
         case actions.FETCH_EVENTS_SUCCESS:
             return { ...state, events: action.items }
+        case actions.FETCH_TEAMS_SUCCESS:
+            console.log('fetch teams action', action)
+            return { ...state, user: { ...state.user, teams: action.teams }}
         case actions.RESET_STATE:
             return INITIAL_STATE
         

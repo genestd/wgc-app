@@ -1,17 +1,18 @@
 import { API, graphqlOperation } from '@aws-amplify/api'
 import { compareDesc, parseISO } from 'date-fns'
-import * as queries from '../graphql/queries'
 import * as mutations from '../graphql/mutations'
 import * as actions from './globalActionTypes'
+import * as WGCUserQueries from '../services/db/queries/users'
 import * as WGCEventQueries from '../services/db/queries/events'
+import * as WGCTeamQueries from '../services/db/queries/teams'
 
 export const loginHandler = async (payload, globalDispatch) => {
     try {
         if (payload.event === 'signIn') {
             // console.log('Payload', payload)
             globalDispatch({ type: actions.SET_LOGIN, payload: true })
-            const result = await API.graphql(graphqlOperation(queries.getUser, { id: payload.username }))
-            globalDispatch({ type: actions.SET_USER, user: result.data.getUser })
+            const user = await WGCUserQueries.getUserById(payload.username)
+            globalDispatch({ type: actions.SET_USER, user })
         } else {
             globalDispatch({ type: actions.RESET_STATE })
         }
@@ -26,7 +27,7 @@ export const fetchEvents = async (globalDispatch) => {
         globalDispatch({ type: actions.ADD_PENDING_ACTION, actionType: actions.FETCH_EVENTS })
         const result = await API.graphql(graphqlOperation(WGCEventQueries.listWGCEvents, { limit: 10}))
         result.data.listEvents.items.sort((a, b) => compareDesc(parseISO(a.startDate), parseISO(b.startDate)))
-        console.log(result.data.listEvents.items, result)
+        // console.log(result.data.listEvents.items, result)
         globalDispatch({ type: actions.FETCH_EVENTS_SUCCESS, items: result.data.listEvents.items })
     } catch (err) {
         console.log(err)
@@ -38,9 +39,6 @@ export const fetchEvents = async (globalDispatch) => {
 export const registerUserForEvent = async (user, event, globalDispatch) => {
     try {
         globalDispatch({ type: actions.ADD_PENDING_ACTION, actionType: actions.REGISTER_USER })
-        if (!Array.isArray(event.registeredUsers)) {
-            event.registeredUsers = []
-        }
         const result = await API.graphql(graphqlOperation(mutations.createEventUsers, { input: {
             eventId: event.id,
             userId: user.id
@@ -52,3 +50,15 @@ export const registerUserForEvent = async (user, event, globalDispatch) => {
         globalDispatch({ type: actions.REMOVE_PENDING_ACTION, actionType: actions.REGISTER_USER })
     }
 }
+
+// export const fetchTeams = async (userId, globalDispatch) => {
+//     try {
+//         globalDispatch({ type: actions.ADD_PENDING_ACTION, actionType: actions.FETCH_TEAMS })
+//         const teams = await WGCTeamQueries.getTeamsByUser(userId)
+//         globalDispatch({ type: actions.FETCH_TEAMS_SUCCESS, teams })
+//     } catch (err) {
+//         console.log(err)
+//     } finally {
+//         globalDispatch({ type: actions.REMOVE_PENDING_ACTION, actionType: actions.FETCH_TEAMS })
+//     }
+// }

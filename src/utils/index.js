@@ -56,7 +56,7 @@ export const getFirst30Words = (str) => {
 }
 
 export const canRegister = (event, user) => {
-    const regList = Array.isArray(event.registeredUsers.items) ? event.registeredUsers.items : []
+    const regList = Array.isArray(event.registeredUsers) ? event.registeredUsers : []
     const inviteList = Array.isArray(event.invitedUsers) ? event.invitedUsers : []
 
     if (event.registrationType === PUBLIC) {

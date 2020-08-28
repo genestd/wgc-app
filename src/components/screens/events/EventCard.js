@@ -30,7 +30,7 @@ const EventCard = ({event, navigation}) => {
                 <Text style={styles.bodyText}>{getFirst30Words(event.description)}</Text>
             </Layout>
             <Layout style={{...styles.row, justifyContent: 'space-between'}} marginHorizontal={-16}>
-                <RegisteredUserList users={event.registeredUsers.items} />
+                <RegisteredUserList users={event.registeredUsers} />
                 <Layout style={styles.row}>
                     <LottieView
                         source={require('../../shared/success-check.json')}

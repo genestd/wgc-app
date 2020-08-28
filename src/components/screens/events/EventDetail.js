@@ -23,12 +23,12 @@ const EventDetail = (props) => {
             </Layout>
             <Layout style={styles.section}>
                 <Text category='h4'>
-                    Scoreboard
+                    Who's Coming
                 </Text>
             </Layout>
             <Layout style={styles.section}>
                 <Text category='h4'>
-                    Who's Coming
+                    Scoreboard
                 </Text>
             </Layout>
         </ScrollView>

@@ -19,6 +19,16 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      teams {
+        items {
+          id
+          userId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -37,6 +47,64 @@ export const listUsers = /* GraphQL */ `
         email
         bio
         avatar
+        events {
+          nextToken
+        }
+        teams {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getTeam = /* GraphQL */ `
+  query GetTeam($id: ID!) {
+    getTeam(id: $id) {
+      id
+      name
+      avatar
+      users {
+        items {
+          id
+          userId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      events {
+        items {
+          id
+          eventId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listTeams = /* GraphQL */ `
+  query ListTeams(
+    $filter: ModelTeamFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        avatar
+        users {
+          nextToken
+        }
         events {
           nextToken
         }
@@ -70,17 +138,16 @@ export const getEvent = /* GraphQL */ `
         }
         nextToken
       }
-      invitedUsers {
-        id
-        screenName
-        email
-        bio
-        avatar
-        events {
-          nextToken
+      invitedUsers
+      teams {
+        items {
+          id
+          eventId
+          teamId
+          createdAt
+          updatedAt
         }
-        createdAt
-        updatedAt
+        nextToken
       }
       createdAt
       updatedAt
@@ -108,14 +175,9 @@ export const listEvents = /* GraphQL */ `
         registeredUsers {
           nextToken
         }
-        invitedUsers {
-          id
-          screenName
-          email
-          bio
-          avatar
-          createdAt
-          updatedAt
+        invitedUsers
+        teams {
+          nextToken
         }
         createdAt
         updatedAt
@@ -144,14 +206,9 @@ export const getEventUsers = /* GraphQL */ `
         registeredUsers {
           nextToken
         }
-        invitedUsers {
-          id
-          screenName
-          email
-          bio
-          avatar
-          createdAt
-          updatedAt
+        invitedUsers
+        teams {
+          nextToken
         }
         createdAt
         updatedAt
@@ -163,6 +220,9 @@ export const getEventUsers = /* GraphQL */ `
         bio
         avatar
         events {
+          nextToken
+        }
+        teams {
           nextToken
         }
         createdAt
@@ -205,6 +265,7 @@ export const listEventUserss = /* GraphQL */ `
           primaryImage
           secondaryImage
           registrationType
+          invitedUsers
           createdAt
           updatedAt
         }
@@ -213,6 +274,164 @@ export const listEventUserss = /* GraphQL */ `
           screenName
           email
           bio
+          avatar
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getTeamUser = /* GraphQL */ `
+  query GetTeamUser($id: ID!) {
+    getTeamUser(id: $id) {
+      id
+      userId
+      teamId
+      team {
+        id
+        name
+        avatar
+        users {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        screenName
+        email
+        bio
+        avatar
+        events {
+          nextToken
+        }
+        teams {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listTeamUsers = /* GraphQL */ `
+  query ListTeamUsers(
+    $filter: ModelTeamUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTeamUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userId
+        teamId
+        team {
+          id
+          name
+          avatar
+          createdAt
+          updatedAt
+        }
+        user {
+          id
+          screenName
+          email
+          bio
+          avatar
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getEventTeam = /* GraphQL */ `
+  query GetEventTeam($id: ID!) {
+    getEventTeam(id: $id) {
+      id
+      eventId
+      teamId
+      event {
+        id
+        name
+        description
+        tagline
+        startDate
+        endDate
+        location
+        primaryImage
+        secondaryImage
+        registrationType
+        registeredUsers {
+          nextToken
+        }
+        invitedUsers
+        teams {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      team {
+        id
+        name
+        avatar
+        users {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listEventTeams = /* GraphQL */ `
+  query ListEventTeams(
+    $filter: ModelEventTeamFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEventTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        eventId
+        teamId
+        event {
+          id
+          name
+          description
+          tagline
+          startDate
+          endDate
+          location
+          primaryImage
+          secondaryImage
+          registrationType
+          invitedUsers
+          createdAt
+          updatedAt
+        }
+        team {
+          id
+          name
           avatar
           createdAt
           updatedAt

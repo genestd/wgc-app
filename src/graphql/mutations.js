@@ -22,6 +22,16 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
+      teams {
+        items {
+          id
+          userId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -48,6 +58,16 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
+      teams {
+        items {
+          id
+          userId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -69,6 +89,118 @@ export const deleteUser = /* GraphQL */ `
           id
           eventId
           userId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      teams {
+        items {
+          id
+          userId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createTeam = /* GraphQL */ `
+  mutation CreateTeam(
+    $input: CreateTeamInput!
+    $condition: ModelTeamConditionInput
+  ) {
+    createTeam(input: $input, condition: $condition) {
+      id
+      name
+      avatar
+      users {
+        items {
+          id
+          userId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      events {
+        items {
+          id
+          eventId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateTeam = /* GraphQL */ `
+  mutation UpdateTeam(
+    $input: UpdateTeamInput!
+    $condition: ModelTeamConditionInput
+  ) {
+    updateTeam(input: $input, condition: $condition) {
+      id
+      name
+      avatar
+      users {
+        items {
+          id
+          userId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      events {
+        items {
+          id
+          eventId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteTeam = /* GraphQL */ `
+  mutation DeleteTeam(
+    $input: DeleteTeamInput!
+    $condition: ModelTeamConditionInput
+  ) {
+    deleteTeam(input: $input, condition: $condition) {
+      id
+      name
+      avatar
+      users {
+        items {
+          id
+          userId
+          teamId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      events {
+        items {
+          id
+          eventId
+          teamId
           createdAt
           updatedAt
         }
@@ -105,17 +237,16 @@ export const createEvent = /* GraphQL */ `
         }
         nextToken
       }
-      invitedUsers {
-        id
-        screenName
-        email
-        bio
-        avatar
-        events {
-          nextToken
+      invitedUsers
+      teams {
+        items {
+          id
+          eventId
+          teamId
+          createdAt
+          updatedAt
         }
-        createdAt
-        updatedAt
+        nextToken
       }
       createdAt
       updatedAt
@@ -148,17 +279,16 @@ export const updateEvent = /* GraphQL */ `
         }
         nextToken
       }
-      invitedUsers {
-        id
-        screenName
-        email
-        bio
-        avatar
-        events {
-          nextToken
+      invitedUsers
+      teams {
+        items {
+          id
+          eventId
+          teamId
+          createdAt
+          updatedAt
         }
-        createdAt
-        updatedAt
+        nextToken
       }
       createdAt
       updatedAt
@@ -191,17 +321,16 @@ export const deleteEvent = /* GraphQL */ `
         }
         nextToken
       }
-      invitedUsers {
-        id
-        screenName
-        email
-        bio
-        avatar
-        events {
-          nextToken
+      invitedUsers
+      teams {
+        items {
+          id
+          eventId
+          teamId
+          createdAt
+          updatedAt
         }
-        createdAt
-        updatedAt
+        nextToken
       }
       createdAt
       updatedAt
@@ -231,14 +360,9 @@ export const createEventUsers = /* GraphQL */ `
         registeredUsers {
           nextToken
         }
-        invitedUsers {
-          id
-          screenName
-          email
-          bio
-          avatar
-          createdAt
-          updatedAt
+        invitedUsers
+        teams {
+          nextToken
         }
         createdAt
         updatedAt
@@ -250,6 +374,9 @@ export const createEventUsers = /* GraphQL */ `
         bio
         avatar
         events {
+          nextToken
+        }
+        teams {
           nextToken
         }
         createdAt
@@ -283,14 +410,9 @@ export const updateEventUsers = /* GraphQL */ `
         registeredUsers {
           nextToken
         }
-        invitedUsers {
-          id
-          screenName
-          email
-          bio
-          avatar
-          createdAt
-          updatedAt
+        invitedUsers
+        teams {
+          nextToken
         }
         createdAt
         updatedAt
@@ -302,6 +424,9 @@ export const updateEventUsers = /* GraphQL */ `
         bio
         avatar
         events {
+          nextToken
+        }
+        teams {
           nextToken
         }
         createdAt
@@ -335,14 +460,9 @@ export const deleteEventUsers = /* GraphQL */ `
         registeredUsers {
           nextToken
         }
-        invitedUsers {
-          id
-          screenName
-          email
-          bio
-          avatar
-          createdAt
-          updatedAt
+        invitedUsers
+        teams {
+          nextToken
         }
         createdAt
         updatedAt
@@ -353,6 +473,279 @@ export const deleteEventUsers = /* GraphQL */ `
         email
         bio
         avatar
+        events {
+          nextToken
+        }
+        teams {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createTeamUser = /* GraphQL */ `
+  mutation CreateTeamUser(
+    $input: CreateTeamUserInput!
+    $condition: ModelTeamUserConditionInput
+  ) {
+    createTeamUser(input: $input, condition: $condition) {
+      id
+      userId
+      teamId
+      team {
+        id
+        name
+        avatar
+        users {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        screenName
+        email
+        bio
+        avatar
+        events {
+          nextToken
+        }
+        teams {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateTeamUser = /* GraphQL */ `
+  mutation UpdateTeamUser(
+    $input: UpdateTeamUserInput!
+    $condition: ModelTeamUserConditionInput
+  ) {
+    updateTeamUser(input: $input, condition: $condition) {
+      id
+      userId
+      teamId
+      team {
+        id
+        name
+        avatar
+        users {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        screenName
+        email
+        bio
+        avatar
+        events {
+          nextToken
+        }
+        teams {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteTeamUser = /* GraphQL */ `
+  mutation DeleteTeamUser(
+    $input: DeleteTeamUserInput!
+    $condition: ModelTeamUserConditionInput
+  ) {
+    deleteTeamUser(input: $input, condition: $condition) {
+      id
+      userId
+      teamId
+      team {
+        id
+        name
+        avatar
+        users {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        screenName
+        email
+        bio
+        avatar
+        events {
+          nextToken
+        }
+        teams {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createEventTeam = /* GraphQL */ `
+  mutation CreateEventTeam(
+    $input: CreateEventTeamInput!
+    $condition: ModelEventTeamConditionInput
+  ) {
+    createEventTeam(input: $input, condition: $condition) {
+      id
+      eventId
+      teamId
+      event {
+        id
+        name
+        description
+        tagline
+        startDate
+        endDate
+        location
+        primaryImage
+        secondaryImage
+        registrationType
+        registeredUsers {
+          nextToken
+        }
+        invitedUsers
+        teams {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      team {
+        id
+        name
+        avatar
+        users {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateEventTeam = /* GraphQL */ `
+  mutation UpdateEventTeam(
+    $input: UpdateEventTeamInput!
+    $condition: ModelEventTeamConditionInput
+  ) {
+    updateEventTeam(input: $input, condition: $condition) {
+      id
+      eventId
+      teamId
+      event {
+        id
+        name
+        description
+        tagline
+        startDate
+        endDate
+        location
+        primaryImage
+        secondaryImage
+        registrationType
+        registeredUsers {
+          nextToken
+        }
+        invitedUsers
+        teams {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      team {
+        id
+        name
+        avatar
+        users {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteEventTeam = /* GraphQL */ `
+  mutation DeleteEventTeam(
+    $input: DeleteEventTeamInput!
+    $condition: ModelEventTeamConditionInput
+  ) {
+    deleteEventTeam(input: $input, condition: $condition) {
+      id
+      eventId
+      teamId
+      event {
+        id
+        name
+        description
+        tagline
+        startDate
+        endDate
+        location
+        primaryImage
+        secondaryImage
+        registrationType
+        registeredUsers {
+          nextToken
+        }
+        invitedUsers
+        teams {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      team {
+        id
+        name
+        avatar
+        users {
+          nextToken
+        }
         events {
           nextToken
         }

@@ -11,7 +11,6 @@ export const registerUserSuccess = (state, action) => {
             return {
                 ...event,
                 registeredUsers: {
-                    ...event.registeredUsers,
                     items: addToArrayUnique(event.registeredUsers.items || [], { userId: action.event.userId })
                 }
             }

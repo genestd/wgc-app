@@ -15,6 +15,7 @@ const UserIcon = ({ avatar, username, offset=0 }) => {
             borderRadius: 25,
             width: 30,
             height: 30,
+            paddingTop: 3,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

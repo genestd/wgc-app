@@ -21,15 +21,7 @@ export const listWGCEvents = /* GraphQL */ `
               userId
           }
         }
-        invitedUsers {
-          id
-          screenName
-          email
-          bio
-          avatar
-          createdAt
-          updatedAt
-        }
+        invitedUsers
       }
       nextToken
     }

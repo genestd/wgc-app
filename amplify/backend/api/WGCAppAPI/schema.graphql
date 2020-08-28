@@ -5,6 +5,15 @@ type User @model {
   bio: String
   avatar: String
   events: [EventUsers] @connection(name: "EventUser", keyName: "byUser", fields: ["id"])
+  teams: [TeamUser]  @connection(name: "TeamUser", keyName: "byUser", fields: ["id"])
+}
+
+type Team @model {
+  id: ID!
+  name: String
+  avatar: String
+  users: [TeamUser]  @connection(name: "TeamUser", keyName: "byTeam", fields: ["id"])
+  events: [EventTeam] @connection(name: "EventTeam", keyName: "byTeam", fields: ["id"])
 }
 
 type Event @model {
@@ -19,7 +28,8 @@ type Event @model {
   secondaryImage: String
   registrationType: RegistrationType
   registeredUsers: [EventUsers] @connection(name: "EventUser", keyName: "byEvent", fields: ["id"])
-  invitedUsers: [User]
+  invitedUsers: [String]
+  teams: [EventTeam]  @connection(name: "EventTeam", keyName: "byEvent", fields: ["id"])
 }
 
 type EventUsers
@@ -32,6 +42,28 @@ type EventUsers
   userId: ID!
   event: Event! @connection(fields: ["eventId"])
   user: User! @connection(fields: ["userId"])
+}
+
+type TeamUser
+@model
+@key(name: "byUser", fields: ["userId", "teamId"])
+@key(name: "byTeam", fields: ["teamId", "userId"]) {
+  id: ID!
+  userId: ID!
+  teamId: ID!
+  team: Team! @connection(fields: ["teamId"])
+  user: User! @connection(fields: ["userId"])
+}
+
+type EventTeam
+  @model
+  @key(name: "byEvent", fields: ["eventId", "teamId"])
+  @key(name: "byTeam", fields: ["teamId", "eventId"]) {
+  id: ID!
+  eventId: ID!
+  teamId: ID!
+  event: Event! @connection(fields: ["eventId"])
+  team: Team! @connection(fields: ["teamId"])
 }
 
 enum RegistrationType {

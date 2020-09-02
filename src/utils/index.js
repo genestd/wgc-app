@@ -68,3 +68,7 @@ export const canRegister = (event, user) => {
     }
     return false
 }
+
+export const getFreeAgents = (teams, users) => {
+    return users.filter(user => !teams.find(team => team.users.find(teamUser => teamUser.userId === user.userId)))
+}

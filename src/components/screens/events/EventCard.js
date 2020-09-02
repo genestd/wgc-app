@@ -26,11 +26,14 @@ const EventCard = ({event, navigation}) => {
             footer={() => <Layout style={{padding: 15}}><EventPlaceTime event={event} mods={{padding: 15}}/></Layout>}
             onPress={() => navigation.navigate('Detail', { event })}
         >
-            <Layout marginHorizontal={-16}>
+            <Layout marginHorizontal={-16} style={{ paddingBottom: 10}}>
                 <Text style={styles.bodyText}>{getFirst30Words(event.description)}</Text>
             </Layout>
             <Layout style={{...styles.row, justifyContent: 'space-between'}} marginHorizontal={-16}>
-                <RegisteredUserList users={event.registeredUsers} />
+                <Layout>
+                    <Text style={{ fontFamily: 'Spartan_700Bold' }}>Registered:</Text>
+                    <RegisteredUserList users={event.registeredUsers} />
+                </Layout>
                 <Layout style={styles.row}>
                     <LottieView
                         source={require('../../shared/success-check.json')}
@@ -70,12 +73,12 @@ const Header = ({ title, subtitle }) => (
 
 const RegisteredUserList = ({ style, users = []}) => {
     return (
-        <Layout>
+        users.length > 0 ? <Layout>
             <Layout style={{...styles.row, position: 'relative', minHeight: 50}}>
                 {users.slice(0,4).map((user, index) => <UserIcon key={user.userId} avatar={user.avatar} username={user.userId} offset={22*index} /> )}
             </Layout>
             {users.length > 4 && <Text>+{users.length - 4} more</Text>}
-        </Layout>
+        </Layout> : <Text style={{ paddingTop: 8 }}>0 users</Text>
     )
 }
 

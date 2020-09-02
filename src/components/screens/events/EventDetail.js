@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView } from 'react-native'
 import { Layout, Text } from '@ui-kitten/components'
 import EventPlaceTime from '../../shared/EventPlaceTime'
 import ImageWithOverlays from '../../shared/ImageWithOverlays'
+import AttendeeList from '../../shared/AttendeeList'
 
 const EventDetail = (props) => {
     const { event } = props.route.params
@@ -23,12 +24,13 @@ const EventDetail = (props) => {
             </Layout>
             <Layout style={styles.section}>
                 <Text category='h4'>
-                    Scoreboard
+                    Who's Coming
                 </Text>
+                <AttendeeList teams={event.teams} registeredUsers={event.registeredUsers} />
             </Layout>
             <Layout style={styles.section}>
                 <Text category='h4'>
-                    Who's Coming
+                    Scoreboard
                 </Text>
             </Layout>
         </ScrollView>

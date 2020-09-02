@@ -25,10 +25,9 @@ export const loginHandler = async (payload, globalDispatch) => {
 export const fetchEvents = async (globalDispatch) => {
     try {
         globalDispatch({ type: actions.ADD_PENDING_ACTION, actionType: actions.FETCH_EVENTS })
-        const result = await API.graphql(graphqlOperation(WGCEventQueries.listWGCEvents, { limit: 10}))
-        result.data.listEvents.items.sort((a, b) => compareDesc(parseISO(a.startDate), parseISO(b.startDate)))
-        // console.log(result.data.listEvents.items, result)
-        globalDispatch({ type: actions.FETCH_EVENTS_SUCCESS, items: result.data.listEvents.items })
+        const events = await WGCEventQueries.getAllEvents()
+        events.sort((a, b) => compareDesc(parseISO(a.startDate), parseISO(b.startDate)))
+        globalDispatch({ type: actions.FETCH_EVENTS_SUCCESS, items: events })
     } catch (err) {
         console.log(err)
     } finally {

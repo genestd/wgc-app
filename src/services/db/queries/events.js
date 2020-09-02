@@ -4,7 +4,8 @@ export const getAllEvents = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const results = await API.graphql(graphqlOperation(listWGCEvents, { limit: 20 }))
-      // console.log(results.data.listEvents.items)
+      //console.log(results.data.listEvents.items)
+      console.log(transformEvents(results.data.listEvents.items))
       resolve (transformEvents(results.data.listEvents.items))
     } catch (err) {
       reject(err)
@@ -39,8 +40,14 @@ const listWGCEvents = /* GraphQL */ `
         teams {
           items {
             team {
+              id
               name
               avatar
+              users {
+                items {
+                  userId
+                }
+              }
             }
           }
         }
@@ -64,6 +71,16 @@ const transformEvents = input => {
     secondaryImage: event.secondaryImage,
     startDate: event.startDate,
     tagline: event.tagline,
-    teams: event.teams.items
+    teams: transformEventTeam(event.teams.items)
   }))
+}
+
+const transformEventTeam = input => {
+  return input.map(item => ({
+    id: item.team.id,
+    name: item.team.name,
+    avatar: item.team.avatar,
+    users: item.team.users.items
+  }))
+
 }

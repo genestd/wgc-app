@@ -25,11 +25,12 @@ const Main = () => {
     const WGCAuthListener = (data) => loginHandler(data.payload, globalDispatch)
 
     useEffect(() => {
+        let subs = []
         async function checkUser() {
             try {
                 const user = await validateUserSession()
                 dispatch({ type: LOGIN_SUCCESS, username: user.username })
-                const subs = addSubscriptions()
+                subs = addSubscriptions(globalDispatch)
             } catch (error) {
                 console.log(error)
                 logout(dispatch)
@@ -41,10 +42,13 @@ const Main = () => {
             WGCAuth: WGCAuthListener
         })
         checkUser()
-        return () => removeHubListeners({
-            auth: authListener,
-            WGCAuth: WGCAuthListener
-        })
+        return () => {
+            removeHubListeners({
+                auth: authListener,
+                WGCAuth: WGCAuthListener
+            })
+            subs.forEach(sub => sub.unsubscribe())
+        }
     }, [])
     return globalState.loggedIn
         ? (

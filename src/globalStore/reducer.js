@@ -1,7 +1,7 @@
 import INITIAL_STATE from './initialState'
 import * as actions from './globalActionTypes'
 import { addToArrayUnique } from '../utils'
-import { registerUserSuccess } from './operations'
+import { registerUserSuccess, handleEventUpdate, handleNewEventTeam } from './operations'
 
 function reducer(state=INITIAL_STATE, action) {
     switch (action.type) {
@@ -21,6 +21,10 @@ function reducer(state=INITIAL_STATE, action) {
             return { ...state, events: action.items }
         case actions.FETCH_TEAMS_SUCCESS:
             return { ...state, user: { ...state.user, teams: action.teams }}
+        case actions.RECEIVED_EVENT_UPDATE:
+            return handleEventUpdate(state, action)
+        case actions.RECEIVED_NEW_EVENT_TEAM:
+            return handleNewEventTeam(state, action)
         case actions.RESET_STATE:
             return INITIAL_STATE
         

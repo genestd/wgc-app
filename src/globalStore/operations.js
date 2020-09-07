@@ -17,3 +17,30 @@ export const registerUserSuccess = (state, action) => {
         })
     }
 }
+
+export const handleEventUpdate = (state, action) => {
+    return {
+        ...state,
+        events: state.events.map(event => {
+            if (event.id === action.event.id) {
+                return action.event
+            }
+            return event
+        })
+    }
+}
+
+export const handleNewEventTeam = (state, action) => {
+    return {
+        ...state,
+        events: state.events.map(event => {
+            if (event.id === action.data.eventId) {
+                return {
+                    ...event,
+                    teams: event.teams.concat(action.data.team)
+                }
+            }
+            return event
+        })
+    }
+}

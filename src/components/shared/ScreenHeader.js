@@ -10,6 +10,7 @@ const ScreenHeader = props => {
         <Layout level='4' style={styles.header}>
             <Icon name={props.iconName} fill={theme['color-info-500']} style={styles.icon} />
             <Text category='s1' style={{color: theme['color-basic-900']}}>{props.title}</Text>
+            {props.headerRight && props.headerRight()}
         </Layout>
     )
 }
@@ -21,13 +22,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 100
+        height: 100,
     },
     icon: {
         height: 25,
         width: 25,
         marginRight: 15
-    }
+    },
+    
 })
 
 ScreenHeader.propTypes = {

@@ -3,5 +3,6 @@ export default {
     pendingActions: [],
     user: {},
     events: [],
+    eventFilter: () => true,
     sessionRegistrations: []
 }

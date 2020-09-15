@@ -1,8 +1,10 @@
 import { API, graphqlOperation } from '@aws-amplify/api'
+import { Storage } from '@aws-amplify/storage'
 import { compareDesc, parseISO } from 'date-fns'
 import * as mutations from '../graphql/mutations'
 import * as actions from './globalActionTypes'
 import * as WGCUserQueries from '../services/db/queries/users'
+import * as WGCUserMutations from '../services/db/mutations/user'
 import * as WGCEventQueries from '../services/db/queries/events'
 import * as WGCTeamQueries from '../services/db/queries/teams'
 
@@ -47,6 +49,25 @@ export const registerUserForEvent = async (user, event, globalDispatch) => {
         console.log(err)
     } finally {
         globalDispatch({ type: actions.REMOVE_PENDING_ACTION, actionType: actions.REGISTER_USER })
+    }
+}
+
+export const updateUserData = async (user, mutations, globalDispatch) => {
+    try {
+        globalDispatch({ type: actions.ADD_PENDING_ACTION, actionType: actions.UPDATE_USER })
+        if (mutations.avatar) {
+            const result = await Storage.put(`${user}_avatar`, mutations.avatar, { level: 'public'})
+            mutations.avatar = result.key
+        }
+        await API.graphql(graphqlOperation(WGCUserMutations.updateWGCUser, { input: {
+            id: user,
+            ...mutations
+        }}))
+        globalDispatch({ type: actions.UPDATE_USER, user: mutations})
+    } catch (err) {
+        console.log(err)
+    } finally {
+        globalDispatch({ type: actions.REMOVE_PENDING_ACTION, actionType: actions.UPDATE_USER })
     }
 }
 

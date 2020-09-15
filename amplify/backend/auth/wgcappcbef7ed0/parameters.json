@@ -1,6 +1,6 @@
 {
     "identityPoolName": "wgcapp90ae41be_identitypool_90ae41be",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "wgcappcbef7ed0",
     "userPoolName": "wgcappcbef7ed0_userpool_cbef7ed0",
     "autoVerifiedAttributes": [

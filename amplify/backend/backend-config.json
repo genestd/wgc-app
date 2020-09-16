@@ -69,5 +69,11 @@
 			"service": "LambdaLayer",
 			"build": true
 		}
+	},
+	"storage": {
+		"wgcstorage": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
 	}
 }

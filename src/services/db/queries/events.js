@@ -34,6 +34,9 @@ const listWGCEvents = /* GraphQL */ `
         registeredUsers {
           items {
               userId
+              user {
+                avatar
+              }
           }
         }
         invitedUsers
@@ -46,6 +49,9 @@ const listWGCEvents = /* GraphQL */ `
               users {
                 items {
                   userId
+                  user {
+                    avatar
+                  }
                 }
               }
             }
@@ -66,7 +72,7 @@ export const transformEvents = input => {
     location: event.location,
     name: event.name,
     primaryImage: event.primaryImage,
-    registeredUsers: event.registeredUsers.items,
+    registeredUsers: transformRegisteredUsers(event.registeredUsers.items),
     registrationType: event.registrationType,
     secondaryImage: event.secondaryImage,
     startDate: event.startDate,
@@ -82,5 +88,12 @@ const transformEventTeam = input => {
     avatar: item.team.avatar,
     users: item.team.users.items
   }))
+}
 
+const transformRegisteredUsers = input => {
+  console.log(input)
+  return input.map(item => ({
+    userId: item.userId,
+    avatar: item.user.avatar
+  }))
 }

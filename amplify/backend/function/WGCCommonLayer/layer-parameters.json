@@ -15,6 +15,14 @@
         }
       ],
       "hash": "6FBAI44VzALzKMMKvcYDJf6RdSSerazNh3Sywb70ZP4="
+    },
+    "2": {
+      "permissions": [
+        {
+          "type": "private"
+        }
+      ],
+      "hash": "906z4xzXkE/TOqMZLrq5HjY6swRVNLbpQv1DJcwOsT8="
     }
   }
 }

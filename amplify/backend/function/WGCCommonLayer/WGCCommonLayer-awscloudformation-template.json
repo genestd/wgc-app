@@ -21,13 +21,31 @@
 					"S3Bucket": "amplify-wgcapp-dev-221458-deployment",
 					"S3Key": "amplify-builds/WGCCommonLayer-build.zip"
 				},
-				"Description": "Lambda layer version 1",
+				"Description": "Lambda layer version 2",
 				"LayerName": "WGCCommonLayer"
 			},
 			"DeletionPolicy": "Retain",
 			"UpdateReplacePolicy": "Retain"
 		},
 		"LambdaLayerPermissionprivate1": {
+			"Type": "AWS::Lambda::LayerVersionPermission",
+			"Properties": {
+				"Action": "lambda:GetLayerVersion",
+				"LayerVersionArn": {
+					"Fn::Sub": [
+						"arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:${layerName}:${layerVersion}",
+						{
+							"layerName": "WGCCommonLayer",
+							"layerVersion": "1"
+						}
+					]
+				},
+				"Principal": {
+					"Ref": "AWS::AccountId"
+				}
+			}
+		},
+		"LambdaLayerPermissionprivate2": {
 			"Type": "AWS::Lambda::LayerVersionPermission",
 			"Properties": {
 				"Action": "lambda:GetLayerVersion",

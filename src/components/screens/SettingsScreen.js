@@ -34,7 +34,7 @@ const SettingsScreen = () => {
     const saveSettings = () => {
         setEditing(false)
         if (newName !== user.screenName || newBio !== user.bio) {
-            globalDispatch({ type: UPDATE_USER, user: { screenName: newName, bio: newBio }})
+            updateUserData(user.id, { screenName: newName, bio: newBio }, globalDispatch)
         }
     }
     const showImagePicker = async () => {

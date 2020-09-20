@@ -30,6 +30,22 @@ export const handleEventUpdate = (state, action) => {
     }
 }
 
+export const addGameToEventSuccess = (state, action) => {
+    return {
+        ...state, 
+        events: state.events.map(event => {
+            if (event.id === action.event) {
+                return {
+                    ...event,
+                    games: action.games
+                }
+            }
+            return event
+
+        })
+    }
+}
+
 export const handleNewEventTeam = (state, action) => {
     return {
         ...state,

@@ -6,6 +6,7 @@ import * as actions from './globalActionTypes'
 import * as WGCUserQueries from '../services/db/queries/users'
 import * as WGCUserMutations from '../services/db/mutations/user'
 import * as WGCEventQueries from '../services/db/queries/events'
+import * as WGCEventMutations from '../services/db/mutations/event'
 import * as WGCTeamQueries from '../services/db/queries/teams'
 
 export const loginHandler = async (payload, globalDispatch) => {
@@ -68,6 +69,21 @@ export const updateUserData = async (user, mutations, globalDispatch) => {
         console.log(err)
     } finally {
         globalDispatch({ type: actions.REMOVE_PENDING_ACTION, actionType: actions.UPDATE_USER })
+    }
+}
+
+export const addGameToEvent = async (event, games, globalDispatch) => {
+    try {
+        globalDispatch({ type: actions.ADD_PENDING_ACTION, actionType: actions.UPDATE_EVENT })
+        await API.graphql(graphqlOperation(WGCEventMutations.updateWGCEvent, { input: {
+            id: event,
+            games
+        }}))
+        globalDispatch({ type: actions.ADD_GAME_TO_EVENT, event, games })
+    } catch (err) {
+        console.log(err)
+    } finally {
+        globalDispatch({ type: actions.REMOVE_PENDING_ACTION, actionType: actions.UPDATE_EVENT })
     }
 }
 

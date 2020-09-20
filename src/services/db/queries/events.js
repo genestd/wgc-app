@@ -31,6 +31,13 @@ const listWGCEvents = /* GraphQL */ `
         primaryImage
         secondaryImage
         registrationType
+        games {
+          bracketType
+          eliminationType
+          name
+          rules
+          scoringMethod
+        }
         registeredUsers {
           items {
               userId
@@ -71,6 +78,7 @@ export const transformEvents = input => {
     invitedUsers: event.invitedUsers,
     location: event.location,
     name: event.name,
+    games: event.games,
     primaryImage: event.primaryImage,
     registeredUsers: transformRegisteredUsers(event.registeredUsers.items),
     registrationType: event.registrationType,

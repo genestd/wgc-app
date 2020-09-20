@@ -149,6 +149,18 @@ export const getEvent = /* GraphQL */ `
         }
         nextToken
       }
+      games {
+        name
+        bracketType
+        scoringMethod
+        pointsToWin
+        eliminationType
+        rules
+        bracket {
+          id
+          status
+        }
+      }
       createdAt
       updatedAt
     }
@@ -178,6 +190,14 @@ export const listEvents = /* GraphQL */ `
         invitedUsers
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt
@@ -209,6 +229,14 @@ export const getEventUsers = /* GraphQL */ `
         invitedUsers
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt
@@ -381,6 +409,14 @@ export const getEventTeam = /* GraphQL */ `
         invitedUsers
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt

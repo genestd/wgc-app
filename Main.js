@@ -7,6 +7,7 @@ import NavDrawer from './src/components/screens/NavDrawer'
 import EventScreen from './src/components/screens/events/EventScreen'
 import ScoreboardScreen from './src/components/screens/ScoreboardScreen'
 import TeamsScreen from './src/components/screens/teams/TeamsScreen'
+import ControlPanelScreen from './src/components/screens/controlPanel/ControlPanelScreen'
 import AuthContainer from './src/components/auth/AuthContainer'
 import { WGCAuthContext } from './src/components/auth/store/context'
 import { validateUserSession, authListener, logout } from './src/components/auth/store/authActions'
@@ -60,6 +61,7 @@ const Main = () => {
                     <Screen name="Events" component={EventScreen} />
                     <Screen name="Scoreboard" component={ScoreboardScreen} />
                     <Screen name="My Teams" component={TeamsScreen} />
+                    <Screen name="Manage Events" component={ControlPanelScreen} />
                     <Screen name="Settings" component={SettingsScreen} />
                 </Navigator>
             </NavigationContainer>

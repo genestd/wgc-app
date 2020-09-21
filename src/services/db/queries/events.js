@@ -32,11 +32,15 @@ const listWGCEvents = /* GraphQL */ `
         secondaryImage
         registrationType
         games {
-          bracketType
-          eliminationType
           name
-          rules
+          bracketType
           scoringMethod
+          eliminationType
+          rules
+          bracket {
+            id
+            status
+          }
         }
         registeredUsers {
           items {

@@ -14,26 +14,32 @@ export const updateWGCEvent = /* GraphQL */ `
       primaryImage
       secondaryImage
       registrationType
+      administrators
       registeredUsers {
         items {
-          id
-          eventId
-          userId
-          createdAt
-          updatedAt
+            userId
+            user {
+              avatar
+            }
         }
-        nextToken
       }
       invitedUsers
       teams {
         items {
-          id
-          eventId
-          teamId
-          createdAt
-          updatedAt
+          team {
+            id
+            name
+            avatar
+            users {
+              items {
+                userId
+                user {
+                  avatar
+                }
+              }
+            }
+          }
         }
-        nextToken
       }
       games {
         name
@@ -46,7 +52,60 @@ export const updateWGCEvent = /* GraphQL */ `
           status
         }
       }
-      createdAt
-      updatedAt
     }
   }`
+
+  export const onUpdateWGCEvent = /* GraphQL */ `
+  subscription OnUpdateEvent {
+    onUpdateEvent {
+      id
+      name
+      description
+      tagline
+      startDate
+      endDate
+      location
+      primaryImage
+      secondaryImage
+      registrationType
+      registeredUsers {
+        items {
+            userId
+            user {
+              avatar
+            }
+        }
+      }
+      invitedUsers
+      administrators
+      teams {
+        items {
+          team {
+            id
+            name
+            avatar
+            users {
+              items {
+                userId
+                user {
+                  avatar
+                }
+              }
+            }
+          }
+        }
+      }
+      games {
+        name
+        bracketType
+        scoringMethod
+        eliminationType
+        rules
+        bracket {
+          id
+          status
+        }
+      }
+    }
+  }
+`;

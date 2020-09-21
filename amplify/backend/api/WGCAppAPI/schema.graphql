@@ -29,6 +29,7 @@ type Event @model {
   registrationType: RegistrationType
   registeredUsers: [EventUsers] @connection(name: "EventUser", keyName: "byEvent", fields: ["id"])
   invitedUsers: [String]
+  administrators: [String]
   teams: [EventTeam]  @connection(name: "EventTeam", keyName: "byEvent", fields: ["id"])
   games: [Game]
 }

@@ -47,6 +47,7 @@ const listWGCEvents = /* GraphQL */ `
           }
         }
         invitedUsers
+        administrators
         teams {
           items {
             team {
@@ -81,6 +82,7 @@ export const transformEvents = input => {
     games: event.games,
     primaryImage: event.primaryImage,
     registeredUsers: transformRegisteredUsers(event.registeredUsers.items),
+    administrators: event.administrators,
     registrationType: event.registrationType,
     secondaryImage: event.secondaryImage,
     startDate: event.startDate,

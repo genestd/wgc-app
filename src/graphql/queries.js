@@ -139,6 +139,7 @@ export const getEvent = /* GraphQL */ `
         nextToken
       }
       invitedUsers
+      administrators
       teams {
         items {
           id
@@ -188,6 +189,7 @@ export const listEvents = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
         }
@@ -227,6 +229,7 @@ export const getEventUsers = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
         }
@@ -294,6 +297,7 @@ export const listEventUserss = /* GraphQL */ `
           secondaryImage
           registrationType
           invitedUsers
+          administrators
           createdAt
           updatedAt
         }
@@ -407,6 +411,7 @@ export const getEventTeam = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
         }
@@ -462,6 +467,7 @@ export const listEventTeams = /* GraphQL */ `
           secondaryImage
           registrationType
           invitedUsers
+          administrators
           createdAt
           updatedAt
         }

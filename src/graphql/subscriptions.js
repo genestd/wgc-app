@@ -217,6 +217,7 @@ export const onCreateEvent = /* GraphQL */ `
         nextToken
       }
       invitedUsers
+      administrators
       teams {
         items {
           id
@@ -268,6 +269,7 @@ export const onUpdateEvent = /* GraphQL */ `
         nextToken
       }
       invitedUsers
+      administrators
       teams {
         items {
           id
@@ -319,6 +321,7 @@ export const onDeleteEvent = /* GraphQL */ `
         nextToken
       }
       invitedUsers
+      administrators
       teams {
         items {
           id
@@ -367,6 +370,7 @@ export const onCreateEventUsers = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
         }
@@ -422,6 +426,7 @@ export const onUpdateEventUsers = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
         }
@@ -477,6 +482,7 @@ export const onDeleteEventUsers = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
         }
@@ -649,6 +655,7 @@ export const onCreateEventTeam = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
         }
@@ -702,6 +709,7 @@ export const onUpdateEventTeam = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
         }
@@ -755,6 +763,7 @@ export const onDeleteEventTeam = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
         }

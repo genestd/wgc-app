@@ -33,7 +33,7 @@ const EventDetail = (props) => {
                 <Text category='h4'>
                     The Games
                 </Text>
-                <GamesList games={event.games} />
+                <GamesList games={event.games} navigation={props.navigation} />
             </Layout>
         </ScrollView>
     )

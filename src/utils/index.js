@@ -72,3 +72,10 @@ export const canRegister = (event, user) => {
 export const getFreeAgents = (teams, users) => {
     return users.filter(user => !teams.find(team => team.users.find(teamUser => teamUser.userId === user.userId)))
 }
+
+export const getEditableEvents = (user, events) => {
+    if (!Array.isArray(events)) {
+        return []
+    }
+    return events.filter(event => user === 'genest' || event.administrators.includes(user))
+}

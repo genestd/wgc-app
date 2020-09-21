@@ -3,49 +3,53 @@ import { StyleSheet } from 'react-native'
 import { Layout, Select, SelectItem, Card, Text } from '@ui-kitten/components'
 import ScreenHeader from '../../shared/ScreenHeader'
 import AddGamesModal from './AddGamesModal'
+import { getEditableEvents } from '../../../utils'
 import { WGCGlobalContext } from '../../../globalStore/context'
 import { addGameToEvent } from '../../../globalStore/globalActions'
 
 const ControlPanelScreen = () => {
-    const {globalState, globalDispatch} = useContext(WGCGlobalContext)
+    const {globalState: { user, events }, globalDispatch} = useContext(WGCGlobalContext)
+    const editableEvents = getEditableEvents(user.id, events)
     const [selectedIndex, setSelectedIndex] = useState(null)
     const [modal, setModal] = useState(null)
     const saveGame = (game) => {
-        const games = globalState.events[selectedIndex - 1].games || []
+        const games = editableEvents[selectedIndex - 1].games || []
         const newGames = [...games, game]
-        addGameToEvent(globalState.events[selectedIndex - 1].id, newGames, globalDispatch)
+        addGameToEvent(editableEvents[selectedIndex - 1].id, newGames, globalDispatch)
     }
 
     return (
         <Layout style={styles.container}>
             <ScreenHeader iconName='settings-2-outline' title='Manage Events' />
-            <Layout style={styles.controlContainer}>
-                <Select
-                    selectedIndex={selectedIndex}
-                    onSelect={index => setSelectedIndex(index)}
-                    value={globalState.events[selectedIndex - 1] && globalState.events[selectedIndex - 1].name}
-                    label='Selected Event'
-                    placeholder='No event selected'
-                >
-                    {globalState.events.map(event => {
-                        return (
-                            <SelectItem key={event.id} title={event.name} />
-                        )
-                    })}
-                </Select>
-                <Layout style={styles.actionsContainer}>
-                    <Card style={styles.card} status='success' onPress={() => setModal('details')}>
-                        <Text>Edit Details</Text>
-                    </Card>
-                    <Card style={styles.card} status='success' onPress={() => setModal('games')}>
-                        <Text>Add Games</Text>
-                    </Card>
-                    <Card style={styles.card} status='success' onPress={() => setModal('brackets')}>
-                        <Text>Add Brackets</Text>
-                    </Card>
+            { editableEvents.length === 0 ? <Text>You are not an administrator for any events</Text> : 
+                <Layout style={styles.controlContainer}>
+                    <Select
+                        selectedIndex={selectedIndex}
+                        onSelect={index => setSelectedIndex(index)}
+                        value={editableEvents[selectedIndex - 1] && editableEvents[selectedIndex - 1].name}
+                        label='Selected Event'
+                        placeholder='No event selected'
+                    >
+                        {editableEvents.map(event => {
+                            return (
+                                <SelectItem key={event.id} title={event.name} />
+                            )
+                        })}
+                    </Select>
+                    <Layout style={styles.actionsContainer}>
+                        <Card style={styles.card} status='success' onPress={() => setModal('details')}>
+                            <Text>Edit Details</Text>
+                        </Card>
+                        <Card style={styles.card} status='success' onPress={() => setModal('games')}>
+                            <Text>Add Games</Text>
+                        </Card>
+                        <Card style={styles.card} status='success' onPress={() => setModal('brackets')}>
+                            <Text>Add Brackets</Text>
+                        </Card>
+                    </Layout>
+                    <AddGamesModal show={modal === 'games'} hide={() => setModal(null)} saveGame={saveGame} />
                 </Layout>
-                <AddGamesModal show={modal === 'games'} hide={() => setModal(null)} saveGame={saveGame} />
-            </Layout>
+            }
         </Layout>
     )
 }

@@ -217,6 +217,7 @@ export const onCreateEvent = /* GraphQL */ `
         nextToken
       }
       invitedUsers
+      administrators
       teams {
         items {
           id
@@ -226,6 +227,18 @@ export const onCreateEvent = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      games {
+        name
+        bracketType
+        scoringMethod
+        pointsToWin
+        eliminationType
+        rules
+        bracket {
+          id
+          status
+        }
       }
       createdAt
       updatedAt
@@ -256,6 +269,7 @@ export const onUpdateEvent = /* GraphQL */ `
         nextToken
       }
       invitedUsers
+      administrators
       teams {
         items {
           id
@@ -265,6 +279,18 @@ export const onUpdateEvent = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      games {
+        name
+        bracketType
+        scoringMethod
+        pointsToWin
+        eliminationType
+        rules
+        bracket {
+          id
+          status
+        }
       }
       createdAt
       updatedAt
@@ -295,6 +321,7 @@ export const onDeleteEvent = /* GraphQL */ `
         nextToken
       }
       invitedUsers
+      administrators
       teams {
         items {
           id
@@ -304,6 +331,18 @@ export const onDeleteEvent = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      games {
+        name
+        bracketType
+        scoringMethod
+        pointsToWin
+        eliminationType
+        rules
+        bracket {
+          id
+          status
+        }
       }
       createdAt
       updatedAt
@@ -331,8 +370,17 @@ export const onCreateEventUsers = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt
@@ -378,8 +426,17 @@ export const onUpdateEventUsers = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt
@@ -425,8 +482,17 @@ export const onDeleteEventUsers = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt
@@ -589,8 +655,17 @@ export const onCreateEventTeam = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt
@@ -634,8 +709,17 @@ export const onUpdateEventTeam = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt
@@ -679,8 +763,17 @@ export const onDeleteEventTeam = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt

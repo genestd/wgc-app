@@ -1,7 +1,7 @@
 import INITIAL_STATE from './initialState'
 import * as actions from './globalActionTypes'
 import { addToArrayUnique } from '../utils'
-import { registerUserSuccess, handleEventUpdate, handleNewEventTeam } from './operations'
+import { registerUserSuccess, handleEventUpdate, handleNewEventTeam, addGameToEventSuccess } from './operations'
 import { EVENT_FILTERS } from '../constants/app'
 
 function reducer(state=INITIAL_STATE, action) {
@@ -20,6 +20,8 @@ function reducer(state=INITIAL_STATE, action) {
             return registerUserSuccess(state, action)
         case actions.FETCH_EVENTS_SUCCESS:
             return { ...state, events: action.items }
+        case actions.ADD_GAME_TO_EVENT:
+            return addGameToEventSuccess(state, action)
         case actions.SET_EVENT_FILTER:
             return { ...state, eventFilter: EVENT_FILTERS[action.value]}
         case actions.FETCH_TEAMS_SUCCESS:

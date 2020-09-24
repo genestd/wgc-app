@@ -4,6 +4,7 @@ import { Layout, Text } from '@ui-kitten/components'
 import EventPlaceTime from '../../shared/EventPlaceTime'
 import ImageWithOverlays from '../../shared/ImageWithOverlays'
 import AttendeeList from '../../shared/AttendeeList'
+import GamesList from '../../shared/GamesList'
 
 const EventDetail = (props) => {
     const { event } = props.route.params
@@ -30,8 +31,9 @@ const EventDetail = (props) => {
             </Layout>
             <Layout style={styles.section}>
                 <Text category='h4'>
-                    Scoreboard
+                    The Games
                 </Text>
+                <GamesList games={event.games} navigation={props.navigation} />
             </Layout>
         </ScrollView>
     )

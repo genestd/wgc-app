@@ -29,7 +29,9 @@ type Event @model {
   registrationType: RegistrationType
   registeredUsers: [EventUsers] @connection(name: "EventUser", keyName: "byEvent", fields: ["id"])
   invitedUsers: [String]
+  administrators: [String]
   teams: [EventTeam]  @connection(name: "EventTeam", keyName: "byEvent", fields: ["id"])
+  games: [Game]
 }
 
 type EventUsers
@@ -66,7 +68,52 @@ type EventTeam
   team: Team! @connection(fields: ["teamId"])
 }
 
+type Game {
+  name: String!
+  bracketType: BracketType!
+  scoringMethod: ScoringMethod!
+  pointsToWin: Int
+  eliminationType: EliminationType
+  rules: String
+  bracket: [Match]
+}
+
+type Match {
+  id: ID!
+  homeTeam: Team!
+  awayTeam: Team!
+  status: MatchStatus
+  results: [Result]
+}
+
+type Result {
+  homeTeamScore: Int
+  awayTeamScore: Int
+  gameStatuss: MatchStatus
+}
+
 enum RegistrationType {
   PUBLIC
   PRIVATE
+}
+
+enum ScoringMethod {
+  HEAD_TO_HEAD
+  TEAM_TOTAL
+}
+
+enum BracketType {
+  ROUND_ROBIN
+}
+
+enum EliminationType {
+  SINGLE_ELIMINATION
+  BEST_OF_THREE
+}
+
+enum MatchStatus {
+  NOT_STARTED
+  ON_THE_CLOCK
+  IN_PROGRESS
+  FINAL
 }

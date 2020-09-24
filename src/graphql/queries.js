@@ -139,6 +139,7 @@ export const getEvent = /* GraphQL */ `
         nextToken
       }
       invitedUsers
+      administrators
       teams {
         items {
           id
@@ -148,6 +149,18 @@ export const getEvent = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      games {
+        name
+        bracketType
+        scoringMethod
+        pointsToWin
+        eliminationType
+        rules
+        bracket {
+          id
+          status
+        }
       }
       createdAt
       updatedAt
@@ -176,8 +189,17 @@ export const listEvents = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt
@@ -207,8 +229,17 @@ export const getEventUsers = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt
@@ -266,6 +297,7 @@ export const listEventUserss = /* GraphQL */ `
           secondaryImage
           registrationType
           invitedUsers
+          administrators
           createdAt
           updatedAt
         }
@@ -379,8 +411,17 @@ export const getEventTeam = /* GraphQL */ `
           nextToken
         }
         invitedUsers
+        administrators
         teams {
           nextToken
+        }
+        games {
+          name
+          bracketType
+          scoringMethod
+          pointsToWin
+          eliminationType
+          rules
         }
         createdAt
         updatedAt
@@ -426,6 +467,7 @@ export const listEventTeams = /* GraphQL */ `
           secondaryImage
           registrationType
           invitedUsers
+          administrators
           createdAt
           updatedAt
         }

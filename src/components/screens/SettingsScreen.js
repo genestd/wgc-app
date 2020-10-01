@@ -7,11 +7,11 @@ import { Layout, Text, Input } from '@ui-kitten/components'
 import ScreenHeader from '../shared/ScreenHeader'
 import UserIcon from '../shared/UserIcon'
 import { WGCGlobalContext } from '../../globalStore/context'
-import { UPDATE_USER } from '../../globalStore/globalActionTypes'
 import { updateUserData } from '../../globalStore/globalActions'
 
-const SettingsScreen = () => {
+const SettingsScreen = (props) => {
     const { globalState: { user }, globalDispatch} = useContext(WGCGlobalContext)
+    const isEditable = props.route.params.user.id === user.id
     const [editing, setEditing] = useState(false)
     const [newName, setNewName] = useState(user.screenName || user.id)
     const [newBio, setNewBio] = useState(user.bio)
@@ -66,7 +66,7 @@ const SettingsScreen = () => {
             <ScreenHeader
                 iconName='options-2-outline'
                 title='Settings'
-                headerRight={editing ? SaveButton : EditButton}
+                headerRight={isEditable ? (editing ? SaveButton : EditButton) : null}
             />
             {editing ? (
                 <>

@@ -55,7 +55,7 @@ const Main = () => {
         ? (
             <NavigationContainer>
                 <Navigator
-                    drawerContent={props => <NavDrawer {...props}/>}
+                    drawerContent={props => <NavDrawer {...props} user={globalState.user} />}
                     drawerStyle={{width: '85%'}}
                 >
                     <Screen name="Events" component={EventScreen} />

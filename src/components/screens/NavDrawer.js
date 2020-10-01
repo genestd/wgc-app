@@ -4,12 +4,12 @@ import { Drawer, DrawerItem, IndexPath, Icon } from '@ui-kitten/components'
 import NavHeader from './NavHeader'
 import NavFooter from './NavFooter'
 
-const NavDrawer = ({ navigation, state }) => {
+const NavDrawer = ({ navigation, state, user }) => {
     return (
         <Drawer
             selectedIndex={new IndexPath(state.index)}
             onSelect={index => navigation.navigate(state.routeNames[index.row])}
-            header={() => <NavHeader pressHandler={() => navigation.navigate('Settings')} />}
+            header={() => <NavHeader pressHandler={() => navigation.navigate('Settings', { user })} />}
             footer={() => <NavFooter />}
         >
             <DrawerItem title='Events' accessoryLeft={() => <Icon style={styles.icon} fill='#ababab' name='pin-outline' />} />

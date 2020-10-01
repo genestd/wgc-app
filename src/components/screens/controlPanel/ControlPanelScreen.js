@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import { Layout, Select, SelectItem, Card, Text } from '@ui-kitten/components'
 import ScreenHeader from '../../shared/ScreenHeader'
-import AddGamesModal from './AddGamesModal'
+import ControlModal from './ControlModal'
 import { getEditableEvents } from '../../../utils'
 import { WGCGlobalContext } from '../../../globalStore/context'
 import { addGameToEvent } from '../../../globalStore/globalActions'
@@ -43,11 +43,19 @@ const ControlPanelScreen = () => {
                         <Card style={styles.card} status='success' onPress={() => setModal('games')}>
                             <Text>Add Games</Text>
                         </Card>
+                        <Card style={styles.card} status='success' onPress={() => setModal('teams')}>
+                            <Text>Manage Teams</Text>
+                        </Card>
                         <Card style={styles.card} status='success' onPress={() => setModal('brackets')}>
                             <Text>Add Brackets</Text>
                         </Card>
                     </Layout>
-                    <AddGamesModal show={modal === 'games'} hide={() => setModal(null)} saveGame={saveGame} />
+                    <ControlModal
+                        show={modal !== null}
+                        modal={modal}
+                        toggleModal={setModal}
+                        saveGame={saveGame}
+                    />
                 </Layout>
             }
         </Layout>

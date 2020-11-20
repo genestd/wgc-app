@@ -1,10 +1,13 @@
 import React from 'react'
 import { Text, Layout, useTheme } from '@ui-kitten/components'
 import { S3Image } from 'aws-amplify-react-native'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
-const UserIcon = ({ avatar, username, offset=0, overlap=true, size='normal' }) => {
+const UserIcon = ({ avatar, username, offset=0, overlap=true, size='normal', canNavigate=false }) => {
     const theme = useTheme()
+    const navigation = useNavigation();
+
     const styles = StyleSheet.create({
         initCapTextAvatar: {
             color: theme['color-info-500'],
@@ -69,15 +72,17 @@ const UserIcon = ({ avatar, username, offset=0, overlap=true, size='normal' }) =
     })
     
     return (
-        avatar ? (
-            <Layout style={overlap ? {...styles.avatarContainerOverlap, ...styles[size]} : {...styles.avatarContainer, ...styles[size]}}>
-                <S3Image imgKey={avatar} style={styles[size]} />
-            </Layout>
-        ) : (
-            <Layout style={overlap ? {...styles.initCapContainerOverlap, ...styles[size]} : {...styles.initCapContainer, ...styles[size]}}>
-                <Text style={styles.initCapTextAvatar}>{username[0].toUpperCase()}</Text>
-            </Layout>
-        )
+        <TouchableOpacity onPress={() => canNavigate && navigation.navigate('ViewUser', { user: { avatar, username, bio: '', screenName: '' }})}>
+            {avatar ? (
+                <Layout style={overlap ? {...styles.avatarContainerOverlap, ...styles[size]} : {...styles.avatarContainer, ...styles[size]}}>
+                    <S3Image imgKey={avatar} style={styles[size]} />
+                </Layout>
+            ) : (
+                <Layout style={overlap ? {...styles.initCapContainerOverlap, ...styles[size]} : {...styles.initCapContainer, ...styles[size]}}>
+                    <Text style={styles.initCapTextAvatar}>{username[0].toUpperCase()}</Text>
+                </Layout>
+            )}
+        </TouchableOpacity>
     )
 }
 

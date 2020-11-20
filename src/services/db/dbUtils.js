@@ -21,7 +21,7 @@ export const addSubscriptions = (globalDispatch) => {
         .subscribe({
             next: response => {
                 const team = response.value.data.onCreateEventTeam
-                console.log(team)
+                // console.log(team)
                 globalDispatch({ type: RECEIVED_NEW_EVENT_TEAM, data: team })
             }
         })

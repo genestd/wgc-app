@@ -25,7 +25,12 @@ const AttendeeList = ({ teams, registeredUsers }) => {
                 <Layout style={styles.subContainer}>
                     {getFreeAgents(teams, registeredUsers).map(user => (
                         <Layout key={user.userId} style={{ marginRight: 5, marginBottom: 5}}>
-                            <UserIcon avatar={user.avatar} username={user.userId} overlap={false} />
+                            <UserIcon
+                                avatar={user.avatar}
+                                username={user.userId}
+                                overlap={false}
+                                canNavigate
+                            />
                         </Layout>
                     ))}
                 </Layout>

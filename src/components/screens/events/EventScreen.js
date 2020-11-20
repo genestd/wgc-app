@@ -4,6 +4,7 @@ import EventList from './EventList'
 import EventDetail from './EventDetail'
 import GameDetail from './GameDetail'
 import ScreenHeader from '../../shared/ScreenHeader'
+import SettingsScreen from '../SettingsScreen';
 
 const Stack = createStackNavigator();
 function EventStack() {
@@ -27,6 +28,15 @@ function EventStack() {
           options={
             {
               header: ({scene, previous, navigation}) => <ScreenHeader iconName='activity-outline' title={scene.route.params.game.name} />
+            }
+          }
+        />
+        <Stack.Screen
+          name="ViewUser"
+          component={SettingsScreen}
+          options={
+            {
+              headerShown: false
             }
           }
         />

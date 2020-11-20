@@ -36,7 +36,7 @@ const GamesList = ({ games, navigation }) => {
                 {games.length > 0 ? (
                     games.map(game => {
                         return (
-                            <TouchableOpacity key={game.name} onPress={()=> navigation.navigate('Game', { game })} style={styles.row}>
+                            <TouchableOpacity key={game.name} onPress={()=> navigation.navigate('Game', { game, onChange: (value) => console.log(value) })} style={styles.row}>
                                 <Text>{game.name}</Text>
                                 <Icon name='arrow-ios-forward-outline' fill={theme['color-info-500']} style={styles.icon} />
                             </TouchableOpacity>

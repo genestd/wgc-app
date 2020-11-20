@@ -47,6 +47,8 @@ const listWGCEvents = /* GraphQL */ `
               userId
               user {
                 avatar
+                screenName
+                bio
               }
           }
         }
@@ -105,9 +107,10 @@ const transformEventTeam = input => {
 }
 
 const transformRegisteredUsers = input => {
-  console.log(input)
   return input.map(item => ({
     userId: item.userId,
-    avatar: item.user.avatar
+    avatar: item.user.avatar,
+    screenName: item.user.screenName,
+    bio: item.user.bio
   }))
 }

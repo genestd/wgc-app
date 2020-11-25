@@ -25,3 +25,5 @@ export const ELIMINATION_TYPES = [
     { key: 'SINGLE_ELIMINATION', value: SINGLE_ELIMINATION },
     { key: 'BEST_OF_THREE', value: BEST_OF_THREE }
 ]
+
+export const EVENT_SCREENDATA_KEY = 'screenData_Events'

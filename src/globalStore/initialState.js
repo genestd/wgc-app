@@ -1,5 +1,6 @@
 export default {
-    loggedIn: false,
+    loggedIn: null,
+    initialDataLoaded: false,
     pendingActions: [],
     user: {},
     events: [],

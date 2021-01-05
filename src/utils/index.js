@@ -1,3 +1,4 @@
+//comment for test
 import { Hub } from '@aws-amplify/core'
 import { PUBLIC } from '../constants/app'
 

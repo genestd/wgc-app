@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Text, View } from 'react-native'
-import { Input, Button, Spinner } from '@ui-kitten/components'
+import { View } from 'react-native'
+import { Text, Input, Button, Spinner } from '@ui-kitten/components'
 import { WGCAuthContext } from './store/context'
 import { resetPassword, resetInput, validateInput } from './store/authActions'
 import { SET_FORGOT_PW_MSG } from './store/actionTypes'

@@ -14,6 +14,8 @@ function reducer(state=INITIAL_STATE, action) {
             return {...state, loggedIn: action.payload}
         case actions.SET_USER:
             return { ...state, user: action.user }
+        case actions.INITIAL_DATA_LOADED:
+            return { ...state, initialDataLoaded: action.payload }
         case actions.UPDATE_USER:
             return { ...state, user: { ...state.user, ...action.user }}
         case actions.REGISTER_USER_SUCCESS: 
@@ -31,7 +33,7 @@ function reducer(state=INITIAL_STATE, action) {
         case actions.RECEIVED_NEW_EVENT_TEAM:
             return handleNewEventTeam(state, action)
         case actions.RESET_STATE:
-            return INITIAL_STATE
+            return { ...INITIAL_STATE, loggedIn: false }
         
         default:
             return state

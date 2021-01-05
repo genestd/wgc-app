@@ -9,13 +9,18 @@ import LoadingScreen from '../../shared/LoadingScreen'
 import EventCard from './EventCard'
 import { StyleSheet } from 'react-native'
 import { fetchEvents } from '../../../globalStore/globalActions'
+import { INITIAL_DATA_LOADED } from '../../../globalStore/globalActionTypes'
 
 const EventList = ({navigation}) => {
     const {globalState, globalDispatch} = useContext(WGCGlobalContext)
     const loading = globalState.pendingActions.includes(FETCH_EVENTS)
     useEffect(() => {
         async function initializeEventsPage () {
-            await fetchEvents(globalDispatch)
+            if (!globalState.initialDataLoaded) {
+                await fetchEvents(globalDispatch)
+            } else {
+                globalDispatch({ type: INITIAL_DATA_LOADED, payload: false })
+            }
         }
         initializeEventsPage()
     }, [])
